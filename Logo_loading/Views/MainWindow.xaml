@@ -1,0 +1,128 @@
+<Window x:Class="Logo_loading.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Logo_loading"
+        mc:Ignorable="d"
+        Title="Custom Logo Loading" Height="500" Width="900"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F5F5"
+        KeyDown="MainWindow_KeyDown">
+    
+    <Window.Resources>
+        <!-- Import animation storyboards from separate resource dictionary -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Animations/AnimationStoryboards.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Main logo container -->
+        <Canvas x:Name="LogoCanvas" 
+                Grid.Row="0"
+                Background="Transparent"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="700" Height="250">
+
+            <!-- Animated Waveform Path -->
+            <Path x:Name="WaveformPath"
+                  Canvas.Left="0" Canvas.Top="150"
+                  StrokeThickness="7"
+                  Fill="Transparent"
+                  StrokeLineJoin="Round"
+                  StrokeStartLineCap="Round"
+                  StrokeEndLineCap="Round"
+                  SnapsToDevicePixels="True">
+                <Path.Stroke>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <!-- Smooth fade in at the beginning -->
+                        <GradientStop x:Name="FadeStart" Color="Transparent" Offset="0"/>
+                        <GradientStop x:Name="BaseStart" Color="#2a3aa0" Offset="0.05"/>
+                        
+                        <!-- Moving pulse wave enhances the base color -->
+                        <GradientStop x:Name="PulseStart" Color="#3941d4" Offset="-0.3"/>
+                        <GradientStop x:Name="PulseLeading" Color="#00bfff" Offset="-0.25"/>
+                        <GradientStop x:Name="PulseCenter" Color="#87ceeb" Offset="-0.2"/>
+                        <GradientStop x:Name="PulseTrailing" Color="#00bfff" Offset="-0.15"/>
+                        <GradientStop x:Name="PulseEnd" Color="#3941d4" Offset="-0.1"/>
+                        
+                        <!-- Base blue line continues through middle -->
+                        <GradientStop x:Name="BaseMiddle" Color="#2a3aa0" Offset="0.5"/>
+                        
+                        <!-- Smooth fade out at the end -->
+                        <GradientStop x:Name="BaseEnd" Color="#2a3aa0" Offset="0.95"/>
+                        <GradientStop x:Name="FadeEnd" Color="Transparent" Offset="1"/>
+                    </LinearGradientBrush>
+                </Path.Stroke>
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure StartPoint="0,0" IsClosed="False">
+                            <!-- Straight start -->
+                            <LineSegment Point="280,0" />
+                            <!-- Wave sequence with increasing amplitude -->
+                            <BezierSegment Point1="295,30" Point2="305,-30" Point3="320,0"/>
+                            <BezierSegment Point1="335,60" Point2="345,-60" Point3="360,0"/>
+                            <BezierSegment Point1="375,90" Point2="385,-90" Point3="400,0"/>
+                            <BezierSegment Point1="415,130" Point2="425,-130" Point3="440,0"/>
+                            <!-- Final straight line -->
+                            <LineSegment Point="700,0"/>
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+
+            <!-- Loading Text with Individual Letter TextBlocks -->
+            <StackPanel Canvas.Left="450" Canvas.Top="115" Orientation="Horizontal">
+                <!-- Individual letter TextBlocks for animation control -->
+                <TextBlock x:Name="Letter0" Text="L" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
+                <TextBlock x:Name="Letter1" Text="o" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
+                <TextBlock x:Name="Letter2" Text="a" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
+                <TextBlock x:Name="Letter3" Text="d" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
+                <TextBlock x:Name="Letter4" Text="i" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
+                <TextBlock x:Name="Letter5" Text="n" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
+                <TextBlock x:Name="Letter6" Text="g" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
+                <TextBlock x:Name="Letter7" Text=" " FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
+                <TextBlock x:Name="Letter8" Text="P" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
+                <TextBlock x:Name="Letter9" Text="a" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
+                <TextBlock x:Name="Letter10" Text="n" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
+                <TextBlock x:Name="Letter11" Text="e" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
+                <TextBlock x:Name="Letter12" Text="l" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
+                
+                <!-- Animated loading dots -->
+                <TextBlock x:Name="Dot1" Text="." FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0" Margin="2,0,0,0"/>
+                <TextBlock x:Name="Dot2" Text="." FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0"/>
+                <TextBlock x:Name="Dot3" Text="." FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0"/>
+            </StackPanel>
+        </Canvas>
+
+        <!-- Status and Instructions Panel -->
+        <Grid Grid.Row="1" Margin="10,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Status message -->
+            <TextBlock x:Name="StatusText" 
+                       Grid.Column="0"
+                       Text="{Binding StatusMessage}" 
+                       FontSize="12" Foreground="Gray" 
+                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            
+            <!-- User instructions -->
+            <TextBlock Grid.Column="1" 
+                       Text="{Binding UserInstructions}" 
+                       FontSize="12" Foreground="Gray" 
+                       HorizontalAlignment="Right" VerticalAlignment="Center" FontStyle="Italic"/>
+        </Grid>
+    </Grid>
+</Window>

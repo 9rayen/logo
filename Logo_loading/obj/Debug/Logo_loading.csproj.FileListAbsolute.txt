@@ -2,11 +2,9 @@ C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\bin\Debug\Logo_loading.exe.co
 C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\bin\Debug\Logo_loading.exe
 C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\bin\Debug\Logo_loading.pdb
 C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\Logo_loading.csproj.AssemblyReference.cache
-C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\MainWindow.g.cs
 C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\App.g.cs
 C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\Logo_loading_MarkupCompile.cache
 C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\Logo_loading_MarkupCompile.lref
-C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\MainWindow.baml
 C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\Logo_loading.g.resources
 C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\Logo_loading.Properties.Resources.resources
 C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\Logo_loading.csproj.GenerateResource.cache
@@ -14,5 +12,8 @@ C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\Logo_loading.csproj
 C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\Logo_loading.exe
 C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\Logo_loading.pdb
 C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\Logo_loading.exe.config
-C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\Styles.baml
 C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\App.baml
+C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\Animations\AnimationStoryboards.baml
+C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\Styles\UIStyles.baml
+C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\Views\MainWindow.g.cs
+C:\Users\USER\Desktop\A4\Logo_loading\Logo_loading\obj\Debug\Views\MainWindow.baml

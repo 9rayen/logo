@@ -1,0 +1,128 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- =============================================== -->
+    <!-- CONTAINER AND LAYOUT STYLES -->
+    <!-- =============================================== -->
+    
+    <!-- Main logo container style -->
+    <Style x:Key="LogoContainerStyle" TargetType="Canvas">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- =============================================== -->
+    <!-- WAVEFORM STYLES -->
+    <!-- =============================================== -->
+    
+    <!-- Animated waveform path style with tunnel gradient -->
+    <Style x:Key="WaveformPathStyle" TargetType="Path">
+        <Setter Property="Stroke">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <!-- Smooth fade in at the beginning -->
+                    <GradientStop x:Name="FadeStart" Color="Transparent" Offset="0"/>
+                    <GradientStop x:Name="BaseStart" Color="#2a3aa0" Offset="0.05"/>
+                    
+                    <!-- Moving pulse wave enhances the base color -->
+                    <!-- These positions move creating the tunnel effect -->
+                    <GradientStop x:Name="PulseStart" Color="#3941d4" Offset="-0.3"/>
+                    <GradientStop x:Name="PulseLeading" Color="#00bfff" Offset="-0.25"/>
+                    <GradientStop x:Name="PulseCenter" Color="#87ceeb" Offset="-0.2"/>
+                    <GradientStop x:Name="PulseTrailing" Color="#00bfff" Offset="-0.15"/>
+                    <GradientStop x:Name="PulseEnd" Color="#3941d4" Offset="-0.1"/>
+                    
+                    <!-- Base blue line continues through middle -->
+                    <GradientStop x:Name="BaseMiddle" Color="#2a3aa0" Offset="0.5"/>
+                    
+                    <!-- Smooth fade out at the end -->
+                    <GradientStop x:Name="BaseEnd" Color="#2a3aa0" Offset="0.95"/>
+                    <GradientStop x:Name="FadeEnd" Color="Transparent" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- =============================================== -->
+    <!-- TEXT AND TYPOGRAPHY STYLES -->
+    <!-- =============================================== -->
+    
+    <!-- Style for individual animated letters -->
+    <Style x:Key="AnimatedLetterStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#333333"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Style for loading dots -->
+    <Style x:Key="LoadingDotStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#333333"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Style for the main loading text (if needed as single block) -->
+    <Style x:Key="LoadingTextStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="#333333"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- =============================================== -->
+    <!-- STATUS AND UI STYLES -->
+    <!-- =============================================== -->
+    
+    <!-- Style for status text -->
+    <Style x:Key="StatusTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Style for instruction text -->
+    <Style x:Key="InstructionTextStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontStyle" Value="Italic"/>
+    </Style>
+
+    <!-- =============================================== -->
+    <!-- LEGACY STYLES (for compatibility) -->
+    <!-- =============================================== -->
+    
+    <!-- Legacy style for animated "L" (keeping for backward compatibility) -->
+    <Style x:Key="AnimatedLStyle" TargetType="Run">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <SolidColorBrush Color="#FF606060"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Legacy style for loading dots as Run elements -->
+    <Style x:Key="LoadingDotRunStyle" TargetType="Run">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#333333"/>
+    </Style>
+
+</ResourceDictionary>
