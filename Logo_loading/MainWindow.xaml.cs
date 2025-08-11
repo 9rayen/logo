@@ -57,7 +57,7 @@ namespace Logo_loading
         /// </summary>
         private void InitializeAnimations()
         {
-            // Get storyboards from resources
+            // Get storyboards from window resources
             lFadingStoryboard = (Storyboard)this.Resources["LFadingAnimation"];
             loadingDotsStoryboard = (Storyboard)this.Resources["LoadingDotsAnimation"];
             colorWaveStoryboard = (Storyboard)this.Resources["ColorWaveAnimation"];

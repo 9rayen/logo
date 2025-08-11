@@ -51,6 +51,31 @@
                            From="1" To="0" Duration="0:0:0.5"
                            BeginTime="0:0:2.5"/>
         </Storyboard>
+
+        <!-- Storyboard for animating the waveform color wave -->
+        <Storyboard x:Key="ColorWaveAnimation" RepeatBehavior="Forever">
+            <!-- Animate the pulse moving through the entire solid section -->
+            <!-- Leading edge of the pulse -->
+            <DoubleAnimation Storyboard.TargetName="PulseStart"
+                           Storyboard.TargetProperty="Offset"
+                           From="0.05" To="0.85" Duration="0:0:2.5"/>
+            <DoubleAnimation Storyboard.TargetName="PulseLeading"
+                           Storyboard.TargetProperty="Offset"
+                           From="0.08" To="0.88" Duration="0:0:2.5"/>
+            
+            <!-- Center of the pulse (bright color) -->
+            <DoubleAnimation Storyboard.TargetName="PulseCenter"
+                           Storyboard.TargetProperty="Offset"
+                           From="0.12" To="0.92" Duration="0:0:2.5"/>
+            
+            <!-- Trailing edge of the pulse -->
+            <DoubleAnimation Storyboard.TargetName="PulseTrailing"
+                           Storyboard.TargetProperty="Offset"
+                           From="0.15" To="0.95" Duration="0:0:2.5"/>
+            <DoubleAnimation Storyboard.TargetName="PulseEnd"
+                           Storyboard.TargetProperty="Offset"
+                           From="0.18" To="0.98" Duration="0:0:2.5"/>
+        </Storyboard>
     </Window.Resources>
 
     <Grid>
@@ -66,8 +91,36 @@
                 Width="700" Height="250">
 
             <Path x:Name="WaveformPath"
-                  Style="{StaticResource WaveformStyle}"
-                  Canvas.Left="0" Canvas.Top="150">
+                  Canvas.Left="0" Canvas.Top="150"
+                  StrokeThickness="7"
+                  Fill="Transparent"
+                  StrokeLineJoin="Round"
+                  StrokeStartLineCap="Round"
+                  StrokeEndLineCap="Round"
+                  SnapsToDevicePixels="True">
+                <Path.Stroke>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <!-- Fade in at the beginning -->
+                        <GradientStop x:Name="FadeStart" Color="Transparent" Offset="0"/>
+                        <GradientStop x:Name="BaseColorStart" Color="#3941d4" Offset="0.1"/>
+                        
+                        <!-- Leading edge of the pulse -->
+                        <GradientStop x:Name="PulseStart" Color="#3941d4" Offset="0.05"/>
+                        <GradientStop x:Name="PulseLeading" Color="#00bfff" Offset="0.08"/>
+                        
+                        <!-- Center of the pulse (bright color) -->
+                        <GradientStop x:Name="PulseCenter" Color="#87ceeb" Offset="0.12"/>
+                        
+                        <!-- Trailing edge of the pulse -->
+                        <GradientStop x:Name="PulseTrailing" Color="#00bfff" Offset="0.15"/>
+                        <GradientStop x:Name="PulseEnd" Color="#3941d4" Offset="0.18"/>
+                        
+                        <!-- Base color for the rest of the line -->
+                        <GradientStop x:Name="BaseColorEnd" Color="#3941d4" Offset="0.85"/>
+                        <!-- Fade out at the end -->
+                        <GradientStop x:Name="FadeEnd" Color="Transparent" Offset="1"/>
+                    </LinearGradientBrush>
+                </Path.Stroke>
                 <Path.Data>
                     <PathGeometry>
                         <PathFigure StartPoint="0,0" IsClosed="False">
