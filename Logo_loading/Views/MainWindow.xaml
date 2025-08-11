@@ -54,7 +54,7 @@
                         <GradientStop x:Name="PulseEnd" Color="#3941d4" Offset="-0.1"/>
                         
                         <!-- Simple blue line base continues -->
-                        <GradientStop x:Name="BaseEnd" Color="#2a3aa0" Offset="1"/>
+                        <GradientStop x:Name="BaseEnd" Color="#7a25cf" Offset="1"/>
                     </LinearGradientBrush>
                 </Path.Stroke>
                 <Path.Data>
@@ -98,13 +98,6 @@
             </StackPanel>
         </Canvas>
 
-        <!-- Status Panel -->
-        <Grid Grid.Row="1" Margin="10,5">
-            <!-- Status message -->
-            <TextBlock x:Name="StatusText" 
-                       Text="{Binding StatusMessage}" 
-                       FontSize="12" Foreground="Gray" 
-                       HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        </Grid>
+       
     </Grid>
 </Window>
