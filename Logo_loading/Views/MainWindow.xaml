@@ -7,8 +7,7 @@
         mc:Ignorable="d"
         Title="Custom Logo Loading" Height="500" Width="900"
         WindowStartupLocation="CenterScreen"
-        Background="#F5F5F5"
-        KeyDown="MainWindow_KeyDown">
+        Background="#F5F5F5">
     
     <Window.Resources>
         <!-- Import animation storyboards from separate resource dictionary -->
@@ -44,9 +43,8 @@
                   SnapsToDevicePixels="True">
                 <Path.Stroke>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                        <!-- Smooth fade in at the beginning -->
-                        <GradientStop x:Name="FadeStart" Color="Transparent" Offset="0"/>
-                        <GradientStop x:Name="BaseStart" Color="#2a3aa0" Offset="0.05"/>
+                        <!-- Simple blue line base -->
+                        <GradientStop x:Name="BaseStart" Color="#2a3aa0" Offset="0"/>
                         
                         <!-- Moving pulse wave enhances the base color -->
                         <GradientStop x:Name="PulseStart" Color="#3941d4" Offset="-0.3"/>
@@ -55,12 +53,8 @@
                         <GradientStop x:Name="PulseTrailing" Color="#00bfff" Offset="-0.15"/>
                         <GradientStop x:Name="PulseEnd" Color="#3941d4" Offset="-0.1"/>
                         
-                        <!-- Base blue line continues through middle -->
-                        <GradientStop x:Name="BaseMiddle" Color="#2a3aa0" Offset="0.5"/>
-                        
-                        <!-- Smooth fade out at the end -->
-                        <GradientStop x:Name="BaseEnd" Color="#2a3aa0" Offset="0.95"/>
-                        <GradientStop x:Name="FadeEnd" Color="Transparent" Offset="1"/>
+                        <!-- Simple blue line base continues -->
+                        <GradientStop x:Name="BaseEnd" Color="#2a3aa0" Offset="1"/>
                     </LinearGradientBrush>
                 </Path.Stroke>
                 <Path.Data>
@@ -83,19 +77,19 @@
             <!-- Loading Text with Individual Letter TextBlocks -->
             <StackPanel Canvas.Left="450" Canvas.Top="115" Orientation="Horizontal">
                 <!-- Individual letter TextBlocks for animation control -->
-                <TextBlock x:Name="Letter0" Text="L" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
-                <TextBlock x:Name="Letter1" Text="o" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
-                <TextBlock x:Name="Letter2" Text="a" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
-                <TextBlock x:Name="Letter3" Text="d" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
-                <TextBlock x:Name="Letter4" Text="i" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
-                <TextBlock x:Name="Letter5" Text="n" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
-                <TextBlock x:Name="Letter6" Text="g" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
-                <TextBlock x:Name="Letter7" Text=" " FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
-                <TextBlock x:Name="Letter8" Text="P" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
-                <TextBlock x:Name="Letter9" Text="a" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
-                <TextBlock x:Name="Letter10" Text="n" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
-                <TextBlock x:Name="Letter11" Text="e" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
-                <TextBlock x:Name="Letter12" Text="l" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0.2"/>
+                <TextBlock x:Name="Letter0" Text="L" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
+                <TextBlock x:Name="Letter1" Text="o" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
+                <TextBlock x:Name="Letter2" Text="a" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
+                <TextBlock x:Name="Letter3" Text="d" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
+                <TextBlock x:Name="Letter4" Text="i" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
+                <TextBlock x:Name="Letter5" Text="n" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
+                <TextBlock x:Name="Letter6" Text="g" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
+                <TextBlock x:Name="Letter7" Text=" " FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
+                <TextBlock x:Name="Letter8" Text="P" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
+                <TextBlock x:Name="Letter9" Text="a" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
+                <TextBlock x:Name="Letter10" Text="n" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
+                <TextBlock x:Name="Letter11" Text="e" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
+                <TextBlock x:Name="Letter12" Text="l" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
                 
                 <!-- Animated loading dots -->
                 <TextBlock x:Name="Dot1" Text="." FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0" Margin="2,0,0,0"/>
@@ -104,25 +98,13 @@
             </StackPanel>
         </Canvas>
 
-        <!-- Status and Instructions Panel -->
+        <!-- Status Panel -->
         <Grid Grid.Row="1" Margin="10,5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            
             <!-- Status message -->
             <TextBlock x:Name="StatusText" 
-                       Grid.Column="0"
                        Text="{Binding StatusMessage}" 
                        FontSize="12" Foreground="Gray" 
                        HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            
-            <!-- User instructions -->
-            <TextBlock Grid.Column="1" 
-                       Text="{Binding UserInstructions}" 
-                       FontSize="12" Foreground="Gray" 
-                       HorizontalAlignment="Right" VerticalAlignment="Center" FontStyle="Italic"/>
         </Grid>
     </Grid>
 </Window>

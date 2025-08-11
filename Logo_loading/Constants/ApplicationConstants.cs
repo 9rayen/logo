@@ -42,23 +42,24 @@ namespace Logo_loading.Constants
 
         /// <summary>
         /// When the first letter starts animating (relative to wave position).
+        /// Letters now start fading 1 second earlier for better synchronization.
         /// </summary>
-        public const double LETTER_START_TIME = 2.9;
+        public const double LETTER_START_TIME = 2.5;
 
         /// <summary>
         /// Duration for each loading dot animation.
         /// </summary>
-        public const double DOT_ANIMATION_DURATION = 0.6;
+        public const double DOT_ANIMATION_DURATION = 0.3;
 
         /// <summary>
-        /// When the loading dots start appearing.
+        /// When the loading dots start appearing (independent of wave).
         /// </summary>
-        public const double DOTS_START_TIME = 5.0;
+        public const double DOTS_START_TIME = 0.5;
 
         /// <summary>
         /// Interval between each dot animation.
         /// </summary>
-        public const double DOT_INTERVAL = 0.2;
+        public const double DOT_INTERVAL = 0.3;
 
         /// <summary>
         /// When letters reset for the next cycle.
@@ -83,14 +84,16 @@ namespace Logo_loading.Constants
         public const double WAVE_END_OFFSET = 1.5;
 
         /// <summary>
-        /// Opacity for letters when they are not highlighted by the wave.
+        /// Opacity for letters when they start (before wave highlights them).
+        /// Letters now start with full opacity (black) and fade to lighter.
         /// </summary>
-        public const double LETTER_INACTIVE_OPACITY = 0.2;
+        public const double LETTER_INACTIVE_OPACITY = 1.0;
 
         /// <summary>
-        /// Opacity for letters when they are highlighted by the wave.
+        /// Opacity for letters after they are highlighted by the wave.
+        /// Letters fade to this lighter opacity when the wave passes.
         /// </summary>
-        public const double LETTER_ACTIVE_OPACITY = 1.0;
+        public const double LETTER_ACTIVE_OPACITY = 0.2;
         #endregion
 
         #region User Interface
@@ -103,11 +106,6 @@ namespace Logo_loading.Constants
         /// Default status message shown when the application is ready.
         /// </summary>
         public const string DEFAULT_STATUS_MESSAGE = "Ready - perfect fade + blue line + tunnel wave effect!";
-
-        /// <summary>
-        /// Instructions displayed to the user.
-        /// </summary>
-        public const string USER_INSTRUCTIONS = "Press SPACE to restart animations, ESC to stop | Perfect fade + blue line + delayed letters!";
         #endregion
 
         #region Colors (Hex Values)

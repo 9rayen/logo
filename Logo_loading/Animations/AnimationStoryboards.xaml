@@ -7,138 +7,195 @@
     <!-- =============================================== -->
     
     <Storyboard x:Key="LetterFadeAnimation" RepeatBehavior="Forever" Duration="0:0:6.0">
-        <!-- Letter animations with 1-second delay and perfect wave synchronization -->
-        <!-- Each letter fades in when the tunnel wave reaches its position -->
+        <!-- Letter animations with reverse fade (black to light) starting 1s earlier -->
+        <!-- Each letter fades from black (1.0) to light (0.2) when the tunnel wave reaches its position -->
         
         <!-- L - Letter 0 -->
         <DoubleAnimation Storyboard.TargetName="Letter0"
                        Storyboard.TargetProperty="Opacity"
-                       From="0.2" To="1" Duration="0:0:0.4"
-                       BeginTime="0:0:3.2"/>
+                       From="1.0" To="0.2" Duration="0:0:0.4"
+                       BeginTime="0:0:2.2"/>
         
         <!-- o - Letter 1 -->
         <DoubleAnimation Storyboard.TargetName="Letter1"
                        Storyboard.TargetProperty="Opacity"
-                       From="0.2" To="1" Duration="0:0:0.4"
-                       BeginTime="0:0:3.35"/>
+                       From="1.0" To="0.2" Duration="0:0:0.4"
+                       BeginTime="0:0:2.35"/>
         
         <!-- a - Letter 2 -->
         <DoubleAnimation Storyboard.TargetName="Letter2"
                        Storyboard.TargetProperty="Opacity"
-                       From="0.2" To="1" Duration="0:0:0.4"
-                       BeginTime="0:0:3.5"/>
+                       From="1.0" To="0.2" Duration="0:0:0.4"
+                       BeginTime="0:0:2.5"/>
         
         <!-- d - Letter 3 -->
         <DoubleAnimation Storyboard.TargetName="Letter3"
                        Storyboard.TargetProperty="Opacity"
-                       From="0.2" To="1" Duration="0:0:0.4"
-                       BeginTime="0:0:3.65"/>
+                       From="1.0" To="0.2" Duration="0:0:0.4"
+                       BeginTime="0:0:2.65"/>
         
         <!-- i - Letter 4 -->
         <DoubleAnimation Storyboard.TargetName="Letter4"
                        Storyboard.TargetProperty="Opacity"
-                       From="0.2" To="1" Duration="0:0:0.4"
-                       BeginTime="0:0:3.8"/>
+                       From="1.0" To="0.2" Duration="0:0:0.4"
+                       BeginTime="0:0:2.8"/>
         
         <!-- n - Letter 5 -->
         <DoubleAnimation Storyboard.TargetName="Letter5"
                        Storyboard.TargetProperty="Opacity"
-                       From="0.2" To="1" Duration="0:0:0.4"
-                       BeginTime="0:0:3.95"/>
+                       From="1.0" To="0.2" Duration="0:0:0.4"
+                       BeginTime="0:0:2.95"/>
         
         <!-- g - Letter 6 -->
         <DoubleAnimation Storyboard.TargetName="Letter6"
                        Storyboard.TargetProperty="Opacity"
-                       From="0.2" To="1" Duration="0:0:0.4"
-                       BeginTime="0:0:4.1"/>
+                       From="1.0" To="0.2" Duration="0:0:0.4"
+                       BeginTime="0:0:3.1"/>
         
         <!-- Space - Letter 7 -->
         <DoubleAnimation Storyboard.TargetName="Letter7"
                        Storyboard.TargetProperty="Opacity"
-                       From="0.2" To="1" Duration="0:0:0.4"
-                       BeginTime="0:0:4.2"/>
+                       From="1.0" To="0.2" Duration="0:0:0.4"
+                       BeginTime="0:0:3.2"/>
         
         <!-- P - Letter 8 -->
         <DoubleAnimation Storyboard.TargetName="Letter8"
                        Storyboard.TargetProperty="Opacity"
-                       From="0.2" To="1" Duration="0:0:0.4"
-                       BeginTime="0:0:4.25"/>
+                       From="1.0" To="0.2" Duration="0:0:0.4"
+                       BeginTime="0:0:3.25"/>
         
         <!-- a - Letter 9 -->
         <DoubleAnimation Storyboard.TargetName="Letter9"
                        Storyboard.TargetProperty="Opacity"
-                       From="0.2" To="1" Duration="0:0:0.4"
-                       BeginTime="0:0:4.4"/>
+                       From="1.0" To="0.2" Duration="0:0:0.4"
+                       BeginTime="0:0:3.4"/>
         
         <!-- n - Letter 10 -->
         <DoubleAnimation Storyboard.TargetName="Letter10"
                        Storyboard.TargetProperty="Opacity"
-                       From="0.2" To="1" Duration="0:0:0.4"
-                       BeginTime="0:0:4.55"/>
+                       From="1.0" To="0.2" Duration="0:0:0.4"
+                       BeginTime="0:0:3.55"/>
         
         <!-- e - Letter 11 -->
         <DoubleAnimation Storyboard.TargetName="Letter11"
                        Storyboard.TargetProperty="Opacity"
-                       From="0.2" To="1" Duration="0:0:0.4"
-                       BeginTime="0:0:4.7"/>
+                       From="1.0" To="0.2" Duration="0:0:0.4"
+                       BeginTime="0:0:3.7"/>
         
         <!-- l - Letter 12 -->
         <DoubleAnimation Storyboard.TargetName="Letter12"
                        Storyboard.TargetProperty="Opacity"
-                       From="0.2" To="1" Duration="0:0:0.4"
-                       BeginTime="0:0:4.85"/>
+                       From="1.0" To="0.2" Duration="0:0:0.4"
+                       BeginTime="0:0:3.85"/>
 
-        <!-- Reset all letters to low opacity for seamless next cycle -->
-        <DoubleAnimation Storyboard.TargetName="Letter0" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
-        <DoubleAnimation Storyboard.TargetName="Letter1" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
-        <DoubleAnimation Storyboard.TargetName="Letter2" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
-        <DoubleAnimation Storyboard.TargetName="Letter3" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
-        <DoubleAnimation Storyboard.TargetName="Letter4" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
-        <DoubleAnimation Storyboard.TargetName="Letter5" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
-        <DoubleAnimation Storyboard.TargetName="Letter6" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
-        <DoubleAnimation Storyboard.TargetName="Letter7" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
-        <DoubleAnimation Storyboard.TargetName="Letter8" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
-        <DoubleAnimation Storyboard.TargetName="Letter9" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
-        <DoubleAnimation Storyboard.TargetName="Letter10" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
-        <DoubleAnimation Storyboard.TargetName="Letter11" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
-        <DoubleAnimation Storyboard.TargetName="Letter12" Storyboard.TargetProperty="Opacity" To="0.2" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
+        <!-- Reset all letters to full opacity for seamless next cycle -->
+        <DoubleAnimation Storyboard.TargetName="Letter0" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
+        <DoubleAnimation Storyboard.TargetName="Letter1" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
+        <DoubleAnimation Storyboard.TargetName="Letter2" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
+        <DoubleAnimation Storyboard.TargetName="Letter3" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
+        <DoubleAnimation Storyboard.TargetName="Letter4" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
+        <DoubleAnimation Storyboard.TargetName="Letter5" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
+        <DoubleAnimation Storyboard.TargetName="Letter6" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
+        <DoubleAnimation Storyboard.TargetName="Letter7" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
+        <DoubleAnimation Storyboard.TargetName="Letter8" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
+        <DoubleAnimation Storyboard.TargetName="Letter9" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
+        <DoubleAnimation Storyboard.TargetName="Letter10" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
+        <DoubleAnimation Storyboard.TargetName="Letter11" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
+        <DoubleAnimation Storyboard.TargetName="Letter12" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2" BeginTime="0:0:5.7"/>
     </Storyboard>
 
     <!-- =============================================== -->
     <!-- LOADING DOTS ANIMATION STORYBOARD -->
-    <!-- Synchronized with tunnel wave - appears after letters complete -->
+    <!-- Independent timing - dots animate on their own schedule -->
+    <!-- Classic appearing and disappearing dots animation -->
     <!-- =============================================== -->
     
     <Storyboard x:Key="LoadingDotsAnimation" RepeatBehavior="Forever" Duration="0:0:6.0">
-        <!-- First dot - appears at 5.0s -->
+        <!-- First dot - starts early and runs independently -->
         <DoubleAnimation Storyboard.TargetName="Dot1"
                        Storyboard.TargetProperty="Opacity"
-                       From="0" To="1" Duration="0:0:0.6"
-                       BeginTime="0:0:5.0"/>
+                       From="0" To="1" Duration="0:0:0.3"
+                       BeginTime="0:0:0.5"/>
         <DoubleAnimation Storyboard.TargetName="Dot1"
                        Storyboard.TargetProperty="Opacity"
-                       From="1" To="0" Duration="0:0:0.6"
-                       BeginTime="0:0:5.6"/>
+                       From="1" To="0" Duration="0:0:0.3"
+                       BeginTime="0:0:1.2"/>
         
-        <!-- Second dot - appears at 5.2s -->
+        <!-- Second dot - follows quickly after first dot -->
         <DoubleAnimation Storyboard.TargetName="Dot2"
                        Storyboard.TargetProperty="Opacity"
-                       From="0" To="1" Duration="0:0:0.6"
+                       From="0" To="1" Duration="0:0:0.3"
+                       BeginTime="0:0:0.8"/>
+        <DoubleAnimation Storyboard.TargetName="Dot2"
+                       Storyboard.TargetProperty="Opacity"
+                       From="1" To="0" Duration="0:0:0.3"
+                       BeginTime="0:0:1.5"/>
+        
+        <!-- Third dot - completes the first sequence -->
+        <DoubleAnimation Storyboard.TargetName="Dot3"
+                       Storyboard.TargetProperty="Opacity"
+                       From="0" To="1" Duration="0:0:0.3"
+                       BeginTime="0:0:1.1"/>
+        <DoubleAnimation Storyboard.TargetName="Dot3"
+                       Storyboard.TargetProperty="Opacity"
+                       From="1" To="0" Duration="0:0:0.3"
+                       BeginTime="0:0:1.8"/>
+        
+        <!-- Second wave of dots animation -->
+        <DoubleAnimation Storyboard.TargetName="Dot1"
+                       Storyboard.TargetProperty="Opacity"
+                       From="0" To="1" Duration="0:0:0.3"
+                       BeginTime="0:0:2.5"/>
+        <DoubleAnimation Storyboard.TargetName="Dot1"
+                       Storyboard.TargetProperty="Opacity"
+                       From="1" To="0" Duration="0:0:0.3"
+                       BeginTime="0:0:3.2"/>
+        
+        <DoubleAnimation Storyboard.TargetName="Dot2"
+                       Storyboard.TargetProperty="Opacity"
+                       From="0" To="1" Duration="0:0:0.3"
+                       BeginTime="0:0:2.8"/>
+        <DoubleAnimation Storyboard.TargetName="Dot2"
+                       Storyboard.TargetProperty="Opacity"
+                       From="1" To="0" Duration="0:0:0.3"
+                       BeginTime="0:0:3.5"/>
+        
+        <DoubleAnimation Storyboard.TargetName="Dot3"
+                       Storyboard.TargetProperty="Opacity"
+                       From="0" To="1" Duration="0:0:0.3"
+                       BeginTime="0:0:3.1"/>
+        <DoubleAnimation Storyboard.TargetName="Dot3"
+                       Storyboard.TargetProperty="Opacity"
+                       From="1" To="0" Duration="0:0:0.3"
+                       BeginTime="0:0:3.8"/>
+        
+        <!-- Third wave of dots animation -->
+        <DoubleAnimation Storyboard.TargetName="Dot1"
+                       Storyboard.TargetProperty="Opacity"
+                       From="0" To="1" Duration="0:0:0.3"
+                       BeginTime="0:0:4.5"/>
+        <DoubleAnimation Storyboard.TargetName="Dot1"
+                       Storyboard.TargetProperty="Opacity"
+                       From="1" To="0" Duration="0:0:0.3"
                        BeginTime="0:0:5.2"/>
+        
         <DoubleAnimation Storyboard.TargetName="Dot2"
                        Storyboard.TargetProperty="Opacity"
-                       From="1" To="0" Duration="0:0:0.6"
-                       BeginTime="0:0:5.8"/>
+                       From="0" To="1" Duration="0:0:0.3"
+                       BeginTime="0:0:4.8"/>
+        <DoubleAnimation Storyboard.TargetName="Dot2"
+                       Storyboard.TargetProperty="Opacity"
+                       From="1" To="0" Duration="0:0:0.3"
+                       BeginTime="0:0:5.5"/>
         
-        <!-- Third dot - appears at 5.4s -->
         <DoubleAnimation Storyboard.TargetName="Dot3"
                        Storyboard.TargetProperty="Opacity"
-                       From="0" To="1" Duration="0:0:0.6"
-                       BeginTime="0:0:5.4"/>
+                       From="0" To="1" Duration="0:0:0.3"
+                       BeginTime="0:0:5.1"/>
         <DoubleAnimation Storyboard.TargetName="Dot3"
                        Storyboard.TargetProperty="Opacity"
-                       From="1" To="0" Duration="0:0:0.6"
-                       BeginTime="0:0:6.0"/>
+                       From="1" To="0" Duration="0:0:0.3"
+                       BeginTime="0:0:5.8"/>
     </Storyboard>
 
     <!-- =============================================== -->

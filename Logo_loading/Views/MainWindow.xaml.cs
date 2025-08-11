@@ -1,6 +1,5 @@
 using System;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media.Animation;
 using Logo_loading.Constants;
 using Logo_loading.ViewModels;
@@ -121,38 +120,6 @@ namespace Logo_loading.Views
         {
             StartAnimations();
         }
-
-        /// <summary>
-        /// Handles key press events for animation control.
-        /// Space: Restart animations | Escape: Stop animations
-        /// </summary>
-        /// <param name="sender">The source of the event</param>
-        /// <param name="e">The key event data</param>
-        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
-        {
-            try
-            {
-                switch (e.Key)
-                {
-                    case Key.Space:
-                        RestartAnimations();
-                        e.Handled = true;
-                        break;
-                    
-                    case Key.Escape:
-                        StopAnimations();
-                        e.Handled = true;
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error handling key press: {ex.Message}", 
-                              "Input Error", 
-                              MessageBoxButton.OK, 
-                              MessageBoxImage.Warning);
-            }
-        }
         #endregion
 
         #region Animation Control Methods
@@ -168,42 +135,6 @@ namespace Logo_loading.Views
             catch (Exception ex)
             {
                 MessageBox.Show($"Failed to start animations: {ex.Message}", 
-                              "Animation Error", 
-                              MessageBoxButton.OK, 
-                              MessageBoxImage.Error);
-            }
-        }
-
-        /// <summary>
-        /// Stops all animations using the ViewModel.
-        /// </summary>
-        private void StopAnimations()
-        {
-            try
-            {
-                _viewModel?.StopAnimations(this, _letterFadeStoryboard, _loadingDotsStoryboard, _colorWaveStoryboard);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to stop animations: {ex.Message}", 
-                              "Animation Error", 
-                              MessageBoxButton.OK, 
-                              MessageBoxImage.Error);
-            }
-        }
-
-        /// <summary>
-        /// Restarts all animations using the ViewModel.
-        /// </summary>
-        private void RestartAnimations()
-        {
-            try
-            {
-                _viewModel?.RestartAnimations(this, _letterFadeStoryboard, _loadingDotsStoryboard, _colorWaveStoryboard);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to restart animations: {ex.Message}", 
                               "Animation Error", 
                               MessageBoxButton.OK, 
                               MessageBoxImage.Error);

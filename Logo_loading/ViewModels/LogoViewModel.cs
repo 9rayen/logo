@@ -62,11 +62,6 @@ namespace Logo_loading.ViewModels
         /// Gets the current loading text from constants.
         /// </summary>
         public string LoadingText => ApplicationConstants.LOADING_TEXT;
-
-        /// <summary>
-        /// Gets the user instructions for controlling animations.
-        /// </summary>
-        public string UserInstructions => ApplicationConstants.USER_INSTRUCTIONS;
         #endregion
 
         #region Constructor
@@ -171,7 +166,7 @@ namespace Logo_loading.ViewModels
         {
             StatusMessage = isAnimating 
                 ? "Perfect animation: tunnel wave + synchronized letters + loading dots!" 
-                : "Animations stopped - Press SPACE to restart";
+                : "Animation completed";
         }
         #endregion
 
