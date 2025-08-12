@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="Custom Logo Loading" Height="500" Width="900"
         WindowStartupLocation="CenterScreen"
-        Background="#F5F5F5">
-    
+        Background="black">
+
     <Window.Resources>
-        <!-- Import animation storyboards from separate resource dictionary -->
+        <!-- Dots and wave storyboards come from here; letter fade will be built dynamically -->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Animations/AnimationStoryboards.xaml"/>
@@ -19,18 +19,23 @@
     </Window.Resources>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="63*"/>
+            <ColumnDefinition Width="34*"/>
+            <ColumnDefinition Width="42*"/>
+            <ColumnDefinition Width="761*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Main logo container -->
-        <Canvas x:Name="LogoCanvas" 
-                Grid.Row="0"
+        <Canvas x:Name="LogoCanvas"
                 Background="Transparent"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Width="700" Height="250">
+                Width="700" Height="250" Grid.Column="2" Margin="3,0,0,0" Grid.ColumnSpan="2">
 
             <!-- Animated Waveform Path -->
             <Path x:Name="WaveformPath"
@@ -45,18 +50,33 @@
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                         <!-- Simple blue line base -->
                         <GradientStop x:Name="BaseStart" Color="#2a3aa0" Offset="0"/>
-                        
+
                         <!-- Moving pulse wave enhances the base color -->
                         <GradientStop x:Name="PulseStart" Color="#3941d4" Offset="-0.3"/>
                         <GradientStop x:Name="PulseLeading" Color="#00bfff" Offset="-0.25"/>
                         <GradientStop x:Name="PulseCenter" Color="#87ceeb" Offset="-0.2"/>
                         <GradientStop x:Name="PulseTrailing" Color="#00bfff" Offset="-0.15"/>
                         <GradientStop x:Name="PulseEnd" Color="#3941d4" Offset="-0.1"/>
-                        
+
                         <!-- Simple blue line base continues -->
                         <GradientStop x:Name="BaseEnd" Color="#7a25cf" Offset="1"/>
                     </LinearGradientBrush>
                 </Path.Stroke>
+
+                <!-- Opacity mask to fade the line at the very start and end -->
+                <Path.OpacityMask>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <!-- Transparent at very start -->
+                        <GradientStop Color="#00FFFFFF" Offset="0"/>
+                        <!-- Fully opaque shortly after start -->
+                        <GradientStop Color="#FFFFFFFF" Offset="0.05"/>
+                        <!-- Fully opaque until near the end -->
+                        <GradientStop Color="#FFFFFFFF" Offset="0.95"/>
+                        <!-- Transparent at very end -->
+                        <GradientStop Color="#00FFFFFF" Offset="1"/>
+                    </LinearGradientBrush>
+                </Path.OpacityMask>
+
                 <Path.Data>
                     <PathGeometry>
                         <PathFigure StartPoint="0,0" IsClosed="False">
@@ -74,30 +94,33 @@
                 </Path.Data>
             </Path>
 
-            <!-- Loading Text with Individual Letter TextBlocks -->
+            <!-- Loading Text: data-driven letters + separate animated dots -->
             <StackPanel Canvas.Left="450" Canvas.Top="115" Orientation="Horizontal">
-                <!-- Individual letter TextBlocks for animation control -->
-                <TextBlock x:Name="Letter0" Text="L" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
-                <TextBlock x:Name="Letter1" Text="o" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
-                <TextBlock x:Name="Letter2" Text="a" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
-                <TextBlock x:Name="Letter3" Text="d" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
-                <TextBlock x:Name="Letter4" Text="i" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
-                <TextBlock x:Name="Letter5" Text="n" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
-                <TextBlock x:Name="Letter6" Text="g" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
-                <TextBlock x:Name="Letter7" Text=" " FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
-                <TextBlock x:Name="Letter8" Text="P" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
-                <TextBlock x:Name="Letter9" Text="a" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
-                <TextBlock x:Name="Letter10" Text="n" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
-                <TextBlock x:Name="Letter11" Text="e" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
-                <TextBlock x:Name="Letter12" Text="l" FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="1.0"/>
-                
-                <!-- Animated loading dots -->
+                <!-- Auto-generates one TextBlock per character -->
+                <ItemsControl x:Name="LettersRepeater">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock x:Name="LetterText"
+                                       Text="{Binding}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="24"
+                                       FontWeight="Bold"
+                                       Foreground="#333333"
+                                       Opacity="1.0"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Animated loading dots (kept; storyboards target these names) -->
                 <TextBlock x:Name="Dot1" Text="." FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0" Margin="2,0,0,0"/>
                 <TextBlock x:Name="Dot2" Text="." FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0"/>
                 <TextBlock x:Name="Dot3" Text="." FontFamily="Segoe UI" FontSize="24" FontWeight="Bold" Foreground="#333333" Opacity="0"/>
             </StackPanel>
         </Canvas>
-
-       
     </Grid>
 </Window>

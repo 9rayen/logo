@@ -123,18 +123,15 @@ namespace Logo_loading.Services
 
         #region Private Methods
         /// <summary>
-        /// Validates that all required parameters are not null.
+        /// Validates that the target parameter is not null.
+        /// Storyboards can be null and will be safely handled with null-conditional operators.
         /// </summary>
         private void ValidateParameters(FrameworkElement target, params Storyboard[] storyboards)
         {
             if (target == null)
                 throw new ArgumentNullException(nameof(target), "Target element cannot be null");
 
-            foreach (var storyboard in storyboards)
-            {
-                if (storyboard == null)
-                    throw new ArgumentNullException(nameof(storyboard), "Storyboard cannot be null");
-            }
+            // Note: Storyboards can be null - they are handled with null-conditional operators in the calling methods
         }
 
         /// <summary>

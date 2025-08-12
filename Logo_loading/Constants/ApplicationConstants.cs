@@ -13,7 +13,7 @@ namespace Logo_loading.Constants
         /// The main loading text displayed in the animation.
         /// Change this value to customize the loading message.
         /// </summary>
-        public const string LOADING_TEXT = "Loading Panel";
+        public const string LOADING_TEXT = "Rayen";
 
         /// <summary>
         /// Maximum number of letters supported by the current XAML structure.
@@ -138,6 +138,14 @@ namespace Logo_loading.Constants
         /// Background color for the window.
         /// </summary>
         public const string BACKGROUND_COLOR = "#F5F5F5";
+
+        // How long a letter stays dim after the wave reaches it
+        public const double LETTER_RESTORE_DELAY = 0.20;   // make shorter/longer as you like
+
+        // Extra stagger so letters relight one-by-one (0.0 = all at once)
+        public const double LETTER_RESTORE_STAGGER = 0.03; // increase for more “cascading” feel
+
+
         #endregion
     }
 }

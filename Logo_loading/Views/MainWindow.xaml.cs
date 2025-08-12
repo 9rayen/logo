@@ -1,84 +1,59 @@
 using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using System.Windows.Threading;
 using Logo_loading.Constants;
 using Logo_loading.ViewModels;
 
 namespace Logo_loading.Views
 {
-    /// <summary>
-    /// Main window for the Custom Logo Loading application.
-    /// Handles the animated logo with tunnel wave effects and synchronized letter animations.
-    /// Implements MVVM pattern with proper separation of concerns.
-    /// Features smooth continuous animations with professional timing and effects.
-    /// </summary>
     public partial class MainWindow : Window
     {
-        #region Private Fields
         private Storyboard _letterFadeStoryboard;
         private Storyboard _loadingDotsStoryboard;
         private Storyboard _colorWaveStoryboard;
         private LogoViewModel _viewModel;
-        #endregion
 
-        #region Constructor
-        /// <summary>
-        /// Initializes a new instance of the MainWindow class.
-        /// Sets up the MVVM pattern, loads animations, and configures the loading text.
-        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
             InitializeViewModel();
             InitializeAnimations();
             SetupLoadingText();
-        }
-        #endregion
 
-        #region Initialization Methods
-        /// <summary>
-        /// Initializes the ViewModel and establishes the data binding context.
-        /// </summary>
+            // After the visual tree is ready, build the dynamic letter storyboard and start animations
+            Loaded += OnLoadedBuildAndStart;
+        }
+
         private void InitializeViewModel()
         {
             _viewModel = new LogoViewModel();
-            this.DataContext = _viewModel;
-            
-            // Set window title from constants
-            this.Title = ApplicationConstants.WINDOW_TITLE;
+            DataContext = _viewModel;
+            Title = ApplicationConstants.WINDOW_TITLE;
         }
 
-        /// <summary>
-        /// Initializes and configures all animation storyboards.
-        /// Retrieves storyboards from window resources and sets up event handlers.
-        /// </summary>
+        // Load only dots and wave storyboards from resources; letters are animated dynamically
         private void InitializeAnimations()
         {
             try
             {
-                // Retrieve storyboards from window resources
-                _letterFadeStoryboard = (Storyboard)this.Resources["LetterFadeAnimation"];
-                _loadingDotsStoryboard = (Storyboard)this.Resources["LoadingDotsAnimation"];
-                _colorWaveStoryboard = (Storyboard)this.Resources["ColorWaveAnimation"];
+                _loadingDotsStoryboard = (Storyboard)Resources["LoadingDotsAnimation"];
+                _colorWaveStoryboard = (Storyboard)Resources["ColorWaveAnimation"];
 
-                // Validate that all storyboards were found
-                ValidateStoryboards();
-
-                // Start animations when window is loaded
-                this.Loaded += MainWindow_Loaded;
+                if (_loadingDotsStoryboard == null)
+                    throw new InvalidOperationException("LoadingDotsAnimation storyboard not found in resources");
+                if (_colorWaveStoryboard == null)
+                    throw new InvalidOperationException("ColorWaveAnimation storyboard not found in resources");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to initialize animations: {ex.Message}", 
-                              "Animation Error", 
-                              MessageBoxButton.OK, 
-                              MessageBoxImage.Warning);
+                MessageBox.Show($"Failed to initialize animations: {ex.Message}",
+                    "Animation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
-        /// <summary>
-        /// Sets up the loading text using the ViewModel's text management capabilities.
-        /// </summary>
+        // Populates the ItemsControl "LettersRepeater" with characters (no hard-coded letters)
         private void SetupLoadingText()
         {
             try
@@ -87,59 +62,104 @@ namespace Logo_loading.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to setup loading text: {ex.Message}", 
-                              "Text Setup Error", 
-                              MessageBoxButton.OK, 
-                              MessageBoxImage.Warning);
+                MessageBox.Show($"Failed to setup loading text: {ex.Message}",
+                    "Text Setup Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
-        /// <summary>
-        /// Validates that all required storyboards were successfully loaded.
-        /// </summary>
-        private void ValidateStoryboards()
+        private void OnLoadedBuildAndStart(object sender, RoutedEventArgs e)
         {
-            if (_letterFadeStoryboard == null)
-                throw new InvalidOperationException("LetterFadeAnimation storyboard not found in resources");
-            
-            if (_loadingDotsStoryboard == null)
-                throw new InvalidOperationException("LoadingDotsAnimation storyboard not found in resources");
-            
-            if (_colorWaveStoryboard == null)
-                throw new InvalidOperationException("ColorWaveAnimation storyboard not found in resources");
+            // Ensure item containers are generated before building animations
+            Dispatcher.InvokeAsync(() =>
+            {
+                BuildDynamicLetterFadeStoryboard();
+                StartAnimations();
+            }, DispatcherPriority.Loaded);
         }
-        #endregion
 
-        #region Event Handlers
-        /// <summary>
-        /// Handles the window loaded event and starts all animations.
-        /// </summary>
-        /// <param name="sender">The source of the event</param>
-        /// <param name="e">The event data</param>
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            StartAnimations();
-        }
-        #endregion
-
-        #region Animation Control Methods
-        /// <summary>
-        /// Starts all logo animations using the ViewModel.
-        /// </summary>
         private void StartAnimations()
         {
             try
             {
+                // Start dynamic letters + resource-based dots and wave via the ViewModel/service
                 _viewModel?.StartAnimations(this, _letterFadeStoryboard, _loadingDotsStoryboard, _colorWaveStoryboard);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to start animations: {ex.Message}", 
-                              "Animation Error", 
-                              MessageBoxButton.OK, 
-                              MessageBoxImage.Error);
+                MessageBox.Show($"Failed to start animations: {ex.Message}",
+                    "Animation Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        #endregion
+
+        // Dynamically create per-letter opacity animations for each generated TextBlock in LettersRepeater
+        private void BuildDynamicLetterFadeStoryboard()
+        {
+            var lettersRepeater = FindName("LettersRepeater") as ItemsControl;
+            if (lettersRepeater == null || lettersRepeater.Items.Count == 0)
+            {
+                _letterFadeStoryboard = new Storyboard(); // no-op if no letters
+                return;
+            }
+
+            var sb = new Storyboard
+            {
+                RepeatBehavior = RepeatBehavior.Forever,
+                Duration = TimeSpan.FromSeconds(ApplicationConstants.TOTAL_CYCLE_DURATION)
+            };
+
+            // Align with wave: previous code offset start by -0.3 from LETTER_START_TIME (~2.5)
+            double start = ApplicationConstants.LETTER_START_TIME - 0.3;
+
+            // How long it takes to fade DOWN to the dim state (increase for smoother/longer dim)
+            double fadeDownDuration = 0.8; // seconds (try 0.25–0.40)
+
+            // Quick restore and stagger so letters relight one-by-one right after the wave passes
+            double restoreDelay = 1.5; // seconds after the "hit" when restore begins
+            double restoreStagger = 0.2; // extra per-letter delay for cascading effect
+
+            for (int i = 0; i < lettersRepeater.Items.Count; i++)
+            {
+                var container = lettersRepeater.ItemContainerGenerator.ContainerFromIndex(i) as ContentPresenter;
+                if (container == null) continue;
+
+                container.ApplyTemplate();
+                var letterText = container.ContentTemplate.FindName("LetterText", container) as FrameworkElement;
+                if (letterText == null) continue;
+
+                var kf = new DoubleAnimationUsingKeyFrames();
+
+                // Start each track at full opacity implicitly (current value).
+                // Fade DOWN to dim (0.2) over fadeDownDuration after the wave "hit" moment
+                var dimKey = new EasingDoubleKeyFrame(
+                    ApplicationConstants.LETTER_ACTIVE_OPACITY, // 0.2
+                    KeyTime.FromTimeSpan(TimeSpan.FromSeconds(
+                        start + i * ApplicationConstants.LETTER_INTERVAL + fadeDownDuration
+                    ))
+                )
+                {
+                    EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseIn }
+                };
+                kf.KeyFrames.Add(dimKey);
+
+                // Fade UP (restore) to full (1.0) after a short delay + stagger
+                var restoreKey = new EasingDoubleKeyFrame(
+                    ApplicationConstants.LETTER_INACTIVE_OPACITY, // 1.0
+                    KeyTime.FromTimeSpan(TimeSpan.FromSeconds(
+                        start + i * ApplicationConstants.LETTER_INTERVAL + fadeDownDuration + restoreDelay + i * restoreStagger
+                    ))
+                )
+                {
+                    EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseOut }
+                };
+                kf.KeyFrames.Add(restoreKey);
+
+                Storyboard.SetTarget(kf, letterText);
+                Storyboard.SetTargetProperty(kf, new PropertyPath(UIElement.OpacityProperty));
+                sb.Children.Add(kf);
+            }
+
+            // No global To=1.0 reset — each letter restores itself within the cycle
+            _letterFadeStoryboard = sb;
+        }
     }
 }
