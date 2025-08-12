@@ -15,7 +15,7 @@ namespace Logo_loading.Constants
         /// The main loading text displayed in the animation.
         /// Change this value to customize the loading message.
         /// </summary>
-        public const string LOADING_TEXT = "Multilane ";
+        public const string LOADING_TEXT = "rayennnnnn ";
 
         /// <summary>
         /// Maximum number of letters supported by the current XAML structure.
@@ -311,17 +311,38 @@ namespace Logo_loading.Constants
                 double cp2X = currentX + cycleWidth * 0.625;
                 double cp2Y = -amplitude;
 
+                // Special handling for the 4th (last) wave cycle to end at -5 instead of 0
+                double endY = (i == WAVE_CYCLE_COUNT - 1) ? -5 : 0;
+
                 figure.Segments.Add(new BezierSegment(
                     new Point(cp1X, cp1Y),
                     new Point(cp2X, cp2Y),
-                    new Point(nextX, 0),
+                    new Point(nextX, endY),
                     true));
 
                 currentX = nextX;
             }
 
-            // Final straight line
-            figure.Segments.Add(new LineSegment(new Point(totalLength, 0), true));
+            // Add the custom transition segment as requested by the user
+            // This corresponds to: <BezierSegment Point1="260,0" Point2="275,0" Point3="280,0"/>
+            // The segment smoothly transitions from the -5 Y position back to 0
+            double transitionStartX = currentX;
+            double transitionEndX = currentX + 20; // Transition over 20 units
+            
+            figure.Segments.Add(new BezierSegment(
+                new Point(transitionStartX, 0), // Point1: start from Y=0 (even though we're at -5)
+                new Point(transitionStartX + 15, 0), // Point2: control point at Y=0
+                new Point(transitionEndX, 0), // Point3: end at Y=0
+                true));
+
+            currentX = transitionEndX;
+
+            // Final straight line (adjust remaining length to account for custom segment)
+            double remainingFinalLength = totalLength - currentX;
+            if (remainingFinalLength > 0)
+            {
+                figure.Segments.Add(new LineSegment(new Point(totalLength, 0), true));
+            }
 
             geometry.Figures.Add(figure);
             return geometry;

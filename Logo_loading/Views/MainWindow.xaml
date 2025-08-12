@@ -76,9 +76,9 @@
                             <BezierSegment Point1="115,30" Point2="125,-30" Point3="140,0"/>
                             <BezierSegment Point1="155,60" Point2="165,-60" Point3="180,0"/>
                             <BezierSegment Point1="195,90" Point2="205,-90" Point3="220,0"/>
-                            <BezierSegment Point1="235,130" Point2="245,-130" Point3="260,0"/>
+                            <BezierSegment Point1="235,130" Point2="245,-130" Point3="260,-5"/>
 
-                            
+                            <BezierSegment Point1="260,0" Point2="275,0" Point3="280,0"/>
 
 
 
