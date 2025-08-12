@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="Custom Logo Loading" Height="500" Width="900"
         WindowStartupLocation="CenterScreen"
-        Background="white">
-
+        Background="White">
+    <!-- Small change to force regeneration -->
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,8 +19,8 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="63*"/>
-            <ColumnDefinition Width="34*"/>
+            <ColumnDefinition Width="250*"/>
+            
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="763*"/>
         </Grid.ColumnDefinitions>

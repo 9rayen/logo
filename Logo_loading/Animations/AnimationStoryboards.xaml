@@ -39,6 +39,43 @@
     </Storyboard>
 
     <!-- =============================================== -->
+    <!-- INDEPENDENT LOADING DOTS ANIMATION STORYBOARD -->
+    <!-- Independent timing - runs on its own 2-second cycle -->
+    <!-- =============================================== -->
+
+    <Storyboard x:Key="IndependentLoadingDotsAnimation" RepeatBehavior="Forever" Duration="0:0:2.0">
+        <!-- First dot - Independent timing -->
+        <DoubleAnimation Storyboard.TargetName="Dot1"
+                       Storyboard.TargetProperty="Opacity"
+                       From="0" To="1" Duration="0:0:0.2"
+                       BeginTime="0:0:0.1"/>
+        <DoubleAnimation Storyboard.TargetName="Dot1"
+                       Storyboard.TargetProperty="Opacity"
+                       From="1" To="0" Duration="0:0:0.2"
+                       BeginTime="0:0:1.2"/>
+
+        <!-- Second dot - Independent timing -->
+        <DoubleAnimation Storyboard.TargetName="Dot2"
+                       Storyboard.TargetProperty="Opacity"
+                       From="0" To="1" Duration="0:0:0.2"
+                       BeginTime="0:0:0.4"/>
+        <DoubleAnimation Storyboard.TargetName="Dot2"
+                       Storyboard.TargetProperty="Opacity"
+                       From="1" To="0" Duration="0:0:0.2"
+                       BeginTime="0:0:1.5"/>
+
+        <!-- Third dot - Independent timing -->
+        <DoubleAnimation Storyboard.TargetName="Dot3"
+                       Storyboard.TargetProperty="Opacity"
+                       From="0" To="1" Duration="0:0:0.2"
+                       BeginTime="0:0:0.7"/>
+        <DoubleAnimation Storyboard.TargetName="Dot3"
+                       Storyboard.TargetProperty="Opacity"
+                       From="1" To="0" Duration="0:0:0.2"
+                       BeginTime="0:0:1.8"/>
+    </Storyboard>
+
+    <!-- =============================================== -->
     <!-- TUNNEL WAVE ANIMATION STORYBOARD -->
     <!-- Fixed timing wave animation -->
     <!-- =============================================== -->

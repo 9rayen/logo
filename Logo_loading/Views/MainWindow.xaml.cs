@@ -12,6 +12,7 @@ namespace Logo_loading.Views
     {
         private Storyboard _letterFadeStoryboard;
         private Storyboard _loadingDotsStoryboard;
+        private Storyboard _independentDotsStoryboard;
         private Storyboard _colorWaveStoryboard;
         private LogoViewModel _viewModel;
 
@@ -39,10 +40,13 @@ namespace Logo_loading.Views
             try
             {
                 _loadingDotsStoryboard = (Storyboard)Resources["LoadingDotsAnimation"];
+                _independentDotsStoryboard = (Storyboard)Resources["IndependentLoadingDotsAnimation"];
                 _colorWaveStoryboard = (Storyboard)Resources["ColorWaveAnimation"];
 
                 if (_loadingDotsStoryboard == null)
                     throw new InvalidOperationException("LoadingDotsAnimation storyboard not found in resources");
+                if (_independentDotsStoryboard == null)
+                    throw new InvalidOperationException("IndependentLoadingDotsAnimation storyboard not found in resources");
                 if (_colorWaveStoryboard == null)
                     throw new InvalidOperationException("ColorWaveAnimation storyboard not found in resources");
             }
@@ -135,8 +139,8 @@ namespace Logo_loading.Views
         {
             try
             {
-                // Start all animations using FIXED timing
-                _viewModel?.StartAnimations(this, _letterFadeStoryboard, _loadingDotsStoryboard, _colorWaveStoryboard);
+                // Start animations using independent dot timing
+                _viewModel?.StartAnimationsWithIndependentDots(this, _letterFadeStoryboard, _independentDotsStoryboard, _colorWaveStoryboard);
             }
             catch (Exception ex)
             {
@@ -164,7 +168,7 @@ namespace Logo_loading.Views
         {
             try
             {
-                _viewModel?.RestartAnimations(this, _letterFadeStoryboard, _loadingDotsStoryboard, _colorWaveStoryboard);
+                _viewModel?.RestartAnimationsWithIndependentDots(this, _letterFadeStoryboard, _independentDotsStoryboard, _colorWaveStoryboard);
             }
             catch (Exception ex)
             {
@@ -177,7 +181,7 @@ namespace Logo_loading.Views
         {
             try
             {
-                _viewModel?.StopAnimations(this, _letterFadeStoryboard, _loadingDotsStoryboard, _colorWaveStoryboard);
+                _viewModel?.StopAnimationsWithIndependentDots(this, _letterFadeStoryboard, _independentDotsStoryboard, _colorWaveStoryboard);
             }
             catch (Exception ex)
             {

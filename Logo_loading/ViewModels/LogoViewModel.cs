@@ -92,6 +92,21 @@ namespace Logo_loading.ViewModels
         }
 
         /// <summary>
+        /// Starts logo animations with independent dot timing using the animation service.
+        /// </summary>
+        public void StartAnimationsWithIndependentDots(FrameworkElement target, 
+                                                      Storyboard letterFadeStoryboard, 
+                                                      Storyboard independentDotsStoryboard, 
+                                                      Storyboard colorWaveStoryboard)
+        {
+            var success = _animationService.StartAnimationsWithIndependentDots(target, letterFadeStoryboard, independentDotsStoryboard, colorWaveStoryboard);
+            if (success)
+            {
+                IsAnimating = true;
+            }
+        }
+
+        /// <summary>
         /// Stops all logo animations using the animation service.
         /// </summary>
         public void StopAnimations(FrameworkElement target, 
@@ -107,6 +122,21 @@ namespace Logo_loading.ViewModels
         }
 
         /// <summary>
+        /// Stops logo animations including independent dots using the animation service.
+        /// </summary>
+        public void StopAnimationsWithIndependentDots(FrameworkElement target, 
+                                                     Storyboard letterFadeStoryboard, 
+                                                     Storyboard independentDotsStoryboard, 
+                                                     Storyboard colorWaveStoryboard)
+        {
+            var success = _animationService.StopAnimationsWithIndependentDots(target, letterFadeStoryboard, independentDotsStoryboard, colorWaveStoryboard);
+            if (success)
+            {
+                IsAnimating = false;
+            }
+        }
+
+        /// <summary>
         /// Restarts all animations using the animation service.
         /// </summary>
         public void RestartAnimations(FrameworkElement target, 
@@ -115,6 +145,17 @@ namespace Logo_loading.ViewModels
                                     Storyboard colorWaveStoryboard)
         {
             _animationService.RestartAnimations(target, letterFadeStoryboard, loadingDotsStoryboard, colorWaveStoryboard);
+        }
+
+        /// <summary>
+        /// Restarts animations with independent dot timing using the animation service.
+        /// </summary>
+        public void RestartAnimationsWithIndependentDots(FrameworkElement target, 
+                                                        Storyboard letterFadeStoryboard, 
+                                                        Storyboard independentDotsStoryboard, 
+                                                        Storyboard colorWaveStoryboard)
+        {
+            _animationService.RestartAnimationsWithIndependentDots(target, letterFadeStoryboard, independentDotsStoryboard, colorWaveStoryboard);
         }
 
         /// <summary>
@@ -144,7 +185,7 @@ namespace Logo_loading.ViewModels
         private void UpdateStatusForAnimationState(bool isAnimating)
         {
             StatusMessage = isAnimating 
-                ? "Simple fixed timing animation running!" 
+                ? "Animation running with independent dot timing!" 
                 : "Animation stopped";
         }
         #endregion

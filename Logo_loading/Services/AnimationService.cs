@@ -58,6 +58,40 @@ namespace Logo_loading.Services
         }
 
         /// <summary>
+        /// Starts animations with independent dot animation timing.
+        /// </summary>
+        /// <param name="target">The target FrameworkElement for the animations</param>
+        /// <param name="letterFadeStoryboard">Storyboard for letter fade animations</param>
+        /// <param name="independentDotsStoryboard">Independent storyboard for dot animations</param>
+        /// <param name="colorWaveStoryboard">Storyboard for color wave animations</param>
+        /// <returns>True if animations started successfully, false otherwise</returns>
+        public bool StartAnimationsWithIndependentDots(FrameworkElement target, 
+                                                      Storyboard letterFadeStoryboard, 
+                                                      Storyboard independentDotsStoryboard, 
+                                                      Storyboard colorWaveStoryboard)
+        {
+            try
+            {
+                ValidateParameters(target, letterFadeStoryboard, independentDotsStoryboard, colorWaveStoryboard);
+
+                // Start letter and wave animations (synchronized)
+                letterFadeStoryboard?.Begin(target);
+                colorWaveStoryboard?.Begin(target);
+                
+                // Start independent dot animation (separate timing)
+                independentDotsStoryboard?.Begin(target);
+
+                OnAnimationStateChanged(true);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                OnAnimationError($"Failed to start animations with independent dots: {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Stops all logo animations with proper cleanup.
         /// </summary>
         /// <param name="target">The target FrameworkElement for the animations</param>
@@ -90,6 +124,38 @@ namespace Logo_loading.Services
         }
 
         /// <summary>
+        /// Stops animations including independent dot animations.
+        /// </summary>
+        /// <param name="target">The target FrameworkElement for the animations</param>
+        /// <param name="letterFadeStoryboard">Storyboard for letter fade animations</param>
+        /// <param name="independentDotsStoryboard">Independent storyboard for dot animations</param>
+        /// <param name="colorWaveStoryboard">Storyboard for color wave animations</param>
+        /// <returns>True if animations stopped successfully, false otherwise</returns>
+        public bool StopAnimationsWithIndependentDots(FrameworkElement target, 
+                                                     Storyboard letterFadeStoryboard, 
+                                                     Storyboard independentDotsStoryboard, 
+                                                     Storyboard colorWaveStoryboard)
+        {
+            try
+            {
+                ValidateParameters(target, letterFadeStoryboard, independentDotsStoryboard, colorWaveStoryboard);
+
+                // Stop all animations
+                letterFadeStoryboard?.Stop(target);
+                independentDotsStoryboard?.Stop(target);
+                colorWaveStoryboard?.Stop(target);
+
+                OnAnimationStateChanged(false);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                OnAnimationError($"Failed to stop animations with independent dots: {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Restarts all animations by stopping them first, then starting them again.
         /// </summary>
         /// <param name="target">The target FrameworkElement for the animations</param>
@@ -116,6 +182,37 @@ namespace Logo_loading.Services
             catch (Exception ex)
             {
                 OnAnimationError($"Failed to restart animations: {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Restarts animations with independent dot timing.
+        /// </summary>
+        /// <param name="target">The target FrameworkElement for the animations</param>
+        /// <param name="letterFadeStoryboard">Storyboard for letter fade animations</param>
+        /// <param name="independentDotsStoryboard">Independent storyboard for dot animations</param>
+        /// <param name="colorWaveStoryboard">Storyboard for color wave animations</param>
+        /// <returns>True if animations restarted successfully, false otherwise</returns>
+        public bool RestartAnimationsWithIndependentDots(FrameworkElement target, 
+                                                        Storyboard letterFadeStoryboard, 
+                                                        Storyboard independentDotsStoryboard, 
+                                                        Storyboard colorWaveStoryboard)
+        {
+            try
+            {
+                // Stop animations first
+                if (!StopAnimationsWithIndependentDots(target, letterFadeStoryboard, independentDotsStoryboard, colorWaveStoryboard))
+                {
+                    return false;
+                }
+
+                // Start animations again
+                return StartAnimationsWithIndependentDots(target, letterFadeStoryboard, independentDotsStoryboard, colorWaveStoryboard);
+            }
+            catch (Exception ex)
+            {
+                OnAnimationError($"Failed to restart animations with independent dots: {ex.Message}");
                 return false;
             }
         }

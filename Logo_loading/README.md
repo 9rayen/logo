@@ -41,16 +41,19 @@ A professional WPF application that displays a custom animated logo with smooth 
 
 ### 4. Enhanced Loading Dots Animation
 - Three dots ("...") after the main text
-- Longer, smoother animations (0.6s duration each)
-- **Synchronized with tunnel**: Dots appear after letters finish (4.0s ? 5.4s)
+- **Independent timing**: Dots run on their own 2-second cycle, separate from the 6-second main cycle
+- **Smooth animations**: 0.2s fade-in and fade-out durations for each dot
+- **Continuous loop**: Dots animate continuously and independently of letters and wave
+- **Sequential appearance**: Dots appear at 0.1s, 0.4s, and 0.7s in their own cycle
 - **Consistent sizing**: Dots use same 24px font as letters
-- Continuous loop with the wave cycle
+- **Perfect independence**: Dot timing is completely separate from wave and letter animations
 
 ### 5. Easy Text Customization with Auto-Scaling
 - **Simple text change**: Modify just one constant in `ApplicationConstants.cs`
 - **Automatic line adjustment**: System automatically extends/shortens the waveform
 - **No complex configuration**: Just change `LOADING_TEXT = "Your Text Here"`
 - **Smart proportions**: Everything scales harmoniously
+- **Independent dots**: Dots continue their own timing regardless of text length changes
 
 ## ?? Quick Start
 

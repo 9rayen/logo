@@ -127,6 +127,54 @@ namespace Logo_loading.Constants
         public const double LETTER_RESET_DURATION = 0.2;
         #endregion
 
+        #region Independent Dot Animation Timing
+        /// <summary>
+        /// Independent cycle duration for dot animations only - separate from main cycle.
+        /// This allows dots to animate at their own pace, independent of wave and letters.
+        /// </summary>
+        public const double DOT_CYCLE_DURATION = 2.0;
+
+        /// <summary>
+        /// When the first independent dot starts appearing in its own cycle.
+        /// </summary>
+        public const double INDEPENDENT_DOT1_START_TIME = 0.1;
+
+        /// <summary>
+        /// When the second independent dot starts appearing in its own cycle.
+        /// </summary>
+        public const double INDEPENDENT_DOT2_START_TIME = 0.4;
+
+        /// <summary>
+        /// When the third independent dot starts appearing in its own cycle.
+        /// </summary>
+        public const double INDEPENDENT_DOT3_START_TIME = 0.7;
+
+        /// <summary>
+        /// Duration for each independent dot fade-in animation.
+        /// </summary>
+        public const double INDEPENDENT_DOT_FADE_IN_DURATION = 0.2;
+
+        /// <summary>
+        /// Duration for each independent dot fade-out animation.
+        /// </summary>
+        public const double INDEPENDENT_DOT_FADE_OUT_DURATION = 0.2;
+
+        /// <summary>
+        /// When the first independent dot fades out in its own cycle.
+        /// </summary>
+        public const double INDEPENDENT_DOT1_FADE_OUT_TIME = 1.2;
+
+        /// <summary>
+        /// When the second independent dot fades out in its own cycle.
+        /// </summary>
+        public const double INDEPENDENT_DOT2_FADE_OUT_TIME = 1.5;
+
+        /// <summary>
+        /// When the third independent dot fades out in its own cycle.
+        /// </summary>
+        public const double INDEPENDENT_DOT3_FADE_OUT_TIME = 1.8;
+        #endregion
+
         #region Wave Animation
         /// <summary>
         /// Starting offset for the wave gradient.
@@ -168,7 +216,7 @@ namespace Logo_loading.Constants
         /// <summary>
         /// Default status message shown when the application is ready.
         /// </summary>
-        public const string DEFAULT_STATUS_MESSAGE = "Ready - simple fixed timing animation!";
+        public const string DEFAULT_STATUS_MESSAGE = "Ready - with independent dot timing animation!";
         #endregion
 
         #region Colors (Hex Values)
