@@ -55,8 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\LetterModel.cs" />
     <Compile Include="Services\AnimationService.cs" />
     <Compile Include="Services\TextManagementService.cs" />
+    <Compile Include="Services\WaveformService.cs" />
     <Compile Include="ViewModels\LogoViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs" />
     <Page Include="Animations\AnimationStoryboards.xaml">

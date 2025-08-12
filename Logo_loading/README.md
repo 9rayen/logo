@@ -1,58 +1,76 @@
 # Custom Logo Loading - WPF Project
 
-A professional WPF application that displays a custom animated logo with smooth letter-by-letter animations and a **continuous tunnel-like color wave**.
+A professional WPF application that displays a custom animated logo with smooth letter-by-letter animations and a **continuous tunnel-like color wave** with **dynamic line length**.
 
-## ? Latest Update - Smooth Tunnel Wave Effect
+## ?? Latest Update - Dynamic Line Length
 
-### ?? **Revolutionary Wave Animation**
-- **Continuous flow**: Wave now flows smoothly like passing through a tunnel
-- **No more pauses**: Wave travels continuously from -0.2 to 1.2 offset 
-- **Slower, smoother**: 6-second cycle gives everything time to be perfectly synchronized
-- **Seamless loop**: Wave appears to enter from one side and exit the other continuously
+### ?? **Revolutionary Dynamic Waveform**
+- **Adaptive length**: Waveform line automatically extends based on text length
+- **Smart scaling**: Longer text gets longer lines to accommodate more characters
+- **Perfect proportions**: Wave cycles and amplitudes scale harmoniously
+- **Seamless integration**: Line length updates coordinate with text changes
 
-### ?? **Perfect Letter Synchronization**
-- **Slower timing**: Letters now have more time to fade in smoothly (0.4s duration each)
-- **Better spacing**: 0.15s intervals between letters for natural progression
-- **Wave-triggered**: Letters still fade in exactly when the wave reaches them
-- **Smooth transitions**: All animations flow naturally together
+### ?? **Dynamic Line Features**
+- **Short text**: Gets shorter, more compact waveform line
+- **Long text**: Gets extended waveform line with more space
+- **Consistent font**: Font size remains fixed at 24px for optimal readability
+- **Smart bounds**: Line length constrained between 300px and 800px
 
 ## Features
 
-### 1. Continuous Tunnel Wave
+### 1. Dynamic Waveform Line Length
+- **Text-based scaling**: Line extends ~15px per character beyond reference length
+- **Reference point**: 8-character text = 400px line (baseline)
+- **Smart geometry**: Wave cycles and final straight section scale proportionally
+- **Smooth curves**: Bezier segments create beautiful wave patterns
+- **Automatic updates**: Line regenerates instantly when text changes
+
+### 2. Continuous Tunnel Wave
 - **Smooth flow**: Wave travels continuously from left to right without stopping
 - **Extended range**: Travels from -0.2 to 1.2 offset for seamless tunnel effect
 - **6-second cycle**: Slower speed allows perfect letter synchronization
 - **No visual pauses**: Creates the illusion of an infinite flowing tunnel
 - **Gradient pulse**: Multi-color gradient creates depth and movement
 
-### 2. Synchronized Letter Animation System
+### 3. Synchronized Letter Animation System
 - **Wave-triggered timing**: Letters fade in exactly when the wave reaches them
 - **Smooth opacity transitions**: 0.2 ? 1.0 opacity over 0.4 seconds
 - **Natural progression**: 0.15s intervals between letters
 - **Perfect synchronization**: 6-second cycle matches wave animation exactly
-- **Sequential timing**: L(2.2s) ? o(2.35s) ? a(2.5s) ? ... ? l(3.85s)
+- **Fixed font size**: Consistent 24px font for optimal readability
 
-### 3. Enhanced Loading Dots Animation
+### 4. Enhanced Loading Dots Animation
 - Three dots ("...") after the main text
 - Longer, smoother animations (0.6s duration each)
 - **Synchronized with tunnel**: Dots appear after letters finish (4.0s ? 5.4s)
+- **Consistent sizing**: Dots use same 24px font as letters
 - Continuous loop with the wave cycle
 
-### 4. Easy Text Customization
-- **Simple text change**: Modify just one constant in `MainWindow.xaml.cs`
-- **Automatic layout**: System automatically handles different text lengths
+### 5. Easy Text Customization with Auto-Scaling
+- **Simple text change**: Modify just one constant in `ApplicationConstants.cs`
+- **Automatic line adjustment**: System automatically extends/shortens the waveform
 - **No complex configuration**: Just change `LOADING_TEXT = "Your Text Here"`
+- **Smart proportions**: Everything scales harmoniously
 
 ## ?? Quick Start
 
-### How to Change the Loading Text
+### How to Change the Loading Text (with Auto-Scaling Line)
 
-1. **Open `MainWindow.xaml.cs`**
-2. **Find this line (around line 24):**private const string LOADING_TEXT = "Loading Panel";3. **Change it to whatever you want:**private const string LOADING_TEXT = "Your Company";
+1. **Open `Constants/ApplicationConstants.cs`**
+2. **Find this line:**public const string LOADING_TEXT = "Multilane Corporation";3. **Change it to whatever you want:**public const string LOADING_TEXT = "Your Company";        // Shorter line
 // or
-private const string LOADING_TEXT = "Please Wait";
+public const string LOADING_TEXT = "Please Wait";         // Short line
 // or
-private const string LOADING_TEXT = "Processing";4. **Build and run** - that's it! ?
+public const string LOADING_TEXT = "Processing Data";     // Medium line
+// or
+public const string LOADING_TEXT = "Loading Your Content Please Wait"; // Longer line4. **Build and run** - the line automatically adjusts! ??
+
+### Line Length Examples
+- **"Test"** (4 chars): ~340px line (compact)
+- **"Loading"** (7 chars): ~385px line (slightly shorter)
+- **"Multilane"** (9 chars): ~415px line (slightly longer)
+- **"Multilane Corporation"** (20 chars): ~580px line (extended)
+- **"This is a very long text message"** (32 chars): ~760px line (maximum)
 
 ### Interactive Controls
 - **SPACE**: Restart all animations
@@ -61,110 +79,110 @@ private const string LOADING_TEXT = "Processing";4. **Build and run** - that's i
 
 ## Technical Implementation
 
+### Dynamic Line Length Architecture
+
+#### Line Length CalculationBase Length: 400px (for 8-character reference)
+Length Per Character: 15px
+Min Length: 300px
+Max Length: 800px
+
+Calculated Length = Base + (TextLength - 8) × 15px
+Clamped between Min and Max
+#### Example Calculations
+- 4 characters: 400 + (4-8) × 15 = 340px
+- 8 characters: 400 + (8-8) × 15 = 400px (reference)
+- 16 characters: 400 + (16-8) × 15 = 520px
+- 32 characters: 400 + (32-8) × 15 = 760px (near max)
+
+#### Dynamic Geometry Generation// Waveform structure:
+Straight Start: 100px (fixed)
+Wave Section: 4 cycles with increasing amplitude
+Final Straight: Remaining length - wave section
+
+// Wave cycles scale proportionally with total length
+// Amplitude increases: 32.5px, 65px, 97.5px, 130px per cycle
 ### Smooth Tunnel Wave Architecture
 
-#### Continuous Animation TimingTotal Cycle Duration: 6.0 seconds (all animations)
+#### Continuous Animation Timing
+- **Total Cycle Duration**: 6.0 seconds (all animations)
+- **Tunnel Wave**: 0.0s ? 6.0s (continuous -0.2 to 1.2 offset)
+- **Letter Animations**: 2.2s ? 3.85s (sequential fade, slower timing)
+- **Dots Animation**: 4.0s ? 5.4s (after letters complete)
+- **Reset Phase**: 5.7s ? 6.0s (smooth transition to next cycle)
 
-Tunnel Wave:        0.0s ? 6.0s (continuous -0.2 to 1.2 offset)
-Letter Animations:  2.2s ? 3.85s (sequential fade, slower timing)
-Dots Animation:     4.0s ? 5.4s (after letters complete)
-Reset Phase:        5.7s ? 6.0s (smooth transition to next cycle)
-#### Tunnel Effect Implementation<!-- Wave travels beyond visible bounds for seamless loop -->
-<DoubleAnimation Storyboard.TargetName="PulseCenter"
-               Storyboard.TargetProperty="Offset"
-               From="-0.13" To="1.27" Duration="0:0:6.0"/>
-#### Perfect Letter Timing2.2s: "L" fades in (when wave center reaches ~0.37 offset)
-2.35s: "o" fades in 
-2.5s: "a" fades in
-2.65s: "d" fades in
-2.8s: "i" fades in
-2.95s: "n" fades in
-3.1s: "g" fades in
-3.2s: " " (space)
-3.25s: "P" fades in
-3.4s: "a" fades in
-3.55s: "n" fades in
-3.7s: "e" fades in
-3.85s: "l" fades in (final letter)
-### Animation Technologies Used
-- **WPF Storyboard**: For orchestrating complex animations
-- **DoubleAnimation**: For smooth opacity and position transitions
-- **Continuous Timing**: 6-second cycle with no pauses or resets
-- **Extended Gradient Range**: -0.2 to 1.3 offset for tunnel effect
-- **Bezier Curves**: For smooth waveform creation
-
-### Key Animation Flow (Tunnel Effect)0.0s: Wave starts entering from left (offset -0.2)
-2.2s: Wave reaches text area, letters start fading in
-3.85s: Last letter fades in
-4.0s: Dots start appearing
-5.4s: Dots finish
-5.7s: Letters reset for next cycle
-6.0s: Wave exits right (offset 1.2) and seamlessly loops
-## Project Structure
-Logo_loading/
-??? MainWindow.xaml          # Tunnel wave storyboards & UI
-??? MainWindow.xaml.cs       # LOADING_TEXT constant & logic
-??? LogoViewModel.cs         # MVVM with tunnel animation status
-??? Styles.xaml             # Consistent letter styling
-??? App.xaml                # Application configuration
-??? README.md               # This documentation
+## Project StructureLogo_loading/
+??? Constants/
+?   ??? ApplicationConstants.cs    # Text, line length, and timing config
+??? Services/
+?   ??? TextManagementService.cs   # Text setup and coordination
+?   ??? WaveformService.cs         # Dynamic line length generation
+?   ??? AnimationService.cs        # Animation control
+??? Models/
+?   ??? LetterModel.cs             # Letter data model
+??? Views/
+?   ??? MainWindow.xaml            # UI layout
+?   ??? MainWindow.xaml.cs         # Code-behind
+??? Animations/
+?   ??? AnimationStoryboards.xaml  # Wave and dots animations
+??? Styles/
+    ??? UIStyles.xaml              # Consistent styling
 ## Customization Options
 
-### 1. Change the Text (Easiest)// In MainWindow.xaml.cs
-private const string LOADING_TEXT = "Your Text Here";
-### 2. Adjust Wave Speed (Advanced)<!-- In MainWindow.xaml - Wave speed -->
+### 1. Change the Text (Easiest - Auto-scaling)// In Constants/ApplicationConstants.cs
+public const string LOADING_TEXT = "Your Text Here"; // Line adjusts automatically!
+### 2. Adjust Line Length Scaling (Advanced)// In Constants/ApplicationConstants.cs
+public const double LENGTH_PER_CHARACTER = 15.0;  // Increase for more aggressive scaling
+public const double BASE_LINE_LENGTH = 400.0;     // Change reference line length
+public const double MIN_LINE_LENGTH = 300.0;      // Minimum line length
+public const double MAX_LINE_LENGTH = 800.0;      // Maximum line length
+### 3. Modify Wave Pattern (Expert)// In Constants/ApplicationConstants.cs
+public const int WAVE_CYCLE_COUNT = 4;             // Number of wave cycles
+public const double WAVE_CYCLE_WIDTH = 40.0;       // Width of each cycle
+public const double WAVE_MAX_AMPLITUDE = 130.0;    // Height of wave peaks
+### 4. Adjust Wave Speed (Advanced)<!-- In Animations/AnimationStoryboards.xaml -->
 <DoubleAnimation Duration="0:0:6.0"/>  <!-- Change 6.0 to make faster/slower -->
-<!-- Note: Also adjust letter timings proportionally -->
-### 3. Modify Tunnel Range<!-- In MainWindow.xaml - Tunnel extent -->
-<DoubleAnimation From="-0.2" To="1.2"/>  <!-- Extend range for wider tunnel -->
-### 4. Letter Fade Timing<!-- In MainWindow.xaml - Letter timing -->
-<DoubleAnimation BeginTime="0:0:2.2"/>  <!-- Adjust when letters start -->
-### 5. Wave Colors<!-- In MainWindow.xaml - Path.Stroke gradient -->
-<GradientStop Color="#87ceeb" Offset="-0.13"/>  <!-- Bright center -->
-<GradientStop Color="#00bfff" Offset="-0.1"/>   <!-- Wave edge -->
 ## Dependencies
 
 - **.NET Framework 4.8**
 - **WPF (Windows Presentation Foundation)**
 - **System.Windows.Media.Animation**
+- **System.Windows.Media** (for PathGeometry)
 
 ## Best Practices Demonstrated
 
-1. **Smooth Continuous Animation**: No jarring pauses or resets
-2. **Tunnel Effect**: Extended gradient range creates seamless flow
-3. **Perfect Timing**: Letters synchronized with wave position
-4. **Easy Customization**: Single constant to change text
-5. **Separation of Concerns**: UI, logic, and data clearly separated
-6. **Resource Management**: Styles and templates in dedicated files
-7. **Error Handling**: Graceful handling of animation errors
-8. **Clean Code**: Comprehensive documentation and naming conventions
-9. **MVVM Pattern**: Proper implementation for maintainability
-10. **Performance**: Efficient continuous animation techniques
+1. **Dynamic Adaptation**: Line length automatically adapts to content
+2. **Smart Scaling**: Proportional scaling maintains visual harmony
+3. **Service Architecture**: Clean separation of concerns with dedicated services
+4. **Configurable Constants**: Easy customization through centralized configuration
+5. **Mathematical Precision**: Accurate geometry generation with proper bounds
+6. **Error Handling**: Comprehensive error handling across all services
+7. **MVVM Pattern**: Proper implementation for maintainability
+8. **Performance**: Efficient geometry generation and caching
 
 ## Visual Effect Description
 
-The wave now behaves like a **continuous tunnel of light**:
-- ?? **Enters from the left**: Wave appears to come from beyond the visible area
-- ? **Illuminates letters**: As it passes over each letter, the letter fades in
-- ?? **Exits to the right**: Wave continues beyond the visible area
-- ?? **Seamless loop**: Immediately starts again, creating infinite flow
-- ?? **No pauses**: Completely smooth, professional animation
+The enhanced system now provides:
+- ?? **Adaptive line**: Waveform automatically scales to text length
+- ?? **Continuous tunnel**: Wave flows smoothly without pauses
+- ?? **Perfect synchronization**: Letters and wave timing remain perfectly aligned
+- ?? **Smart proportions**: Everything scales harmoniously regardless of text length
+- ? **Professional appearance**: Consistent, polished look for any text length
 
 ## Troubleshooting
 
-### ? Tunnel Effect Working!
-- **No more pauses**: Wave flows continuously without waiting
-- **Perfect letter sync**: Letters appear exactly when wave reaches them
-- **Smooth transitions**: All animations flow naturally together
+### ? Dynamic Line Length Working!
+- **Automatic scaling**: Line extends/contracts based on text length
+- **Perfect proportions**: Wave patterns scale harmoniously
+- **Consistent timing**: Animation timing remains synchronized regardless of line length
 
 ### Common Customizations
-- **Text too long**: Increase the 13 TextBlock limit in XAML
-- **Speed adjustment**: Modify Duration but keep proportional timings
-- **Tunnel width**: Adjust From/To values in wave animations
+- **Different scaling**: Modify `LENGTH_PER_CHARACTER` for more/less aggressive scaling
+- **Line bounds**: Adjust `MIN_LINE_LENGTH` and `MAX_LINE_LENGTH` for different limits
+- **Wave pattern**: Change `WAVE_CYCLE_COUNT` and `WAVE_MAX_AMPLITUDE` for different wave styles
 
 ---
 
 *?? Created with WPF and .NET Framework 4.8*  
-*?? Featuring smooth continuous tunnel wave animation*  
-*?? Easy to customize with just one line of code*  
-*? No pauses, no waiting - pure flowing animation*
+*?? Featuring dynamic line length that adapts to your text*  
+*?? Smart scaling with perfect proportions*  
+*? Easy to customize with just one line of code*

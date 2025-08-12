@@ -22,7 +22,7 @@ namespace Logo_loading.Views
             InitializeAnimations();
             SetupLoadingText();
 
-            // After the visual tree is ready, build the dynamic letter storyboard and start animations
+            // Build letter animations after loaded and start
             Loaded += OnLoadedBuildAndStart;
         }
 
@@ -33,7 +33,7 @@ namespace Logo_loading.Views
             Title = ApplicationConstants.WINDOW_TITLE;
         }
 
-        // Load only dots and wave storyboards from resources; letters are animated dynamically
+        // Load fixed animations from XAML resources
         private void InitializeAnimations()
         {
             try
@@ -53,7 +53,7 @@ namespace Logo_loading.Views
             }
         }
 
-        // Populates the ItemsControl "LettersRepeater" with characters (no hard-coded letters)
+        // Simple text setup without complex animations
         private void SetupLoadingText()
         {
             try
@@ -69,19 +69,73 @@ namespace Logo_loading.Views
 
         private void OnLoadedBuildAndStart(object sender, RoutedEventArgs e)
         {
-            // Ensure item containers are generated before building animations
+            // Build letter animations after layout is complete, then start
             Dispatcher.InvokeAsync(() =>
             {
-                BuildDynamicLetterFadeStoryboard();
+                BuildFixedLetterAnimations();
                 StartAnimations();
             }, DispatcherPriority.Loaded);
+        }
+
+        // Build simple letter animations with FIXED timing for the actual generated letters
+        private void BuildFixedLetterAnimations()
+        {
+            var lettersRepeater = FindName("LettersRepeater") as ItemsControl;
+            if (lettersRepeater == null || lettersRepeater.Items.Count == 0)
+            {
+                _letterFadeStoryboard = new Storyboard(); // empty storyboard
+                return;
+            }
+
+            var storyboard = new Storyboard
+            {
+                RepeatBehavior = RepeatBehavior.Forever,
+                Duration = TimeSpan.FromSeconds(ApplicationConstants.TOTAL_CYCLE_DURATION)
+            };
+
+            // Fixed timing - simple and predictable
+            double startTime = ApplicationConstants.LETTER_START_TIME;
+            
+            for (int i = 0; i < lettersRepeater.Items.Count; i++)
+            {
+                var container = lettersRepeater.ItemContainerGenerator.ContainerFromIndex(i) as ContentPresenter;
+                if (container == null) continue;
+
+                container.ApplyTemplate();
+                var letterText = container.ContentTemplate?.FindName("LetterText", container) as FrameworkElement;
+                if (letterText == null) continue;
+
+                // Calculate FIXED timing for this letter
+                var letterTriggerTime = startTime + (i * ApplicationConstants.LETTER_INTERVAL);
+                var restoreTime = letterTriggerTime + 0.2 + (i * 0.05); // Simple fixed restore timing
+
+                var keyFrameAnimation = new DoubleAnimationUsingKeyFrames();
+
+                // Fade to dim
+                keyFrameAnimation.KeyFrames.Add(new EasingDoubleKeyFrame(
+                    ApplicationConstants.LETTER_ACTIVE_OPACITY,
+                    KeyTime.FromTimeSpan(TimeSpan.FromSeconds(letterTriggerTime))
+                ));
+
+                // Restore to full
+                keyFrameAnimation.KeyFrames.Add(new EasingDoubleKeyFrame(
+                    ApplicationConstants.LETTER_INACTIVE_OPACITY,
+                    KeyTime.FromTimeSpan(TimeSpan.FromSeconds(restoreTime))
+                ));
+
+                Storyboard.SetTarget(keyFrameAnimation, letterText);
+                Storyboard.SetTargetProperty(keyFrameAnimation, new PropertyPath(UIElement.OpacityProperty));
+                storyboard.Children.Add(keyFrameAnimation);
+            }
+
+            _letterFadeStoryboard = storyboard;
         }
 
         private void StartAnimations()
         {
             try
             {
-                // Start dynamic letters + resource-based dots and wave via the ViewModel/service
+                // Start all animations using FIXED timing
                 _viewModel?.StartAnimations(this, _letterFadeStoryboard, _loadingDotsStoryboard, _colorWaveStoryboard);
             }
             catch (Exception ex)
@@ -91,75 +145,45 @@ namespace Logo_loading.Views
             }
         }
 
-        // Dynamically create per-letter opacity animations for each generated TextBlock in LettersRepeater
-        private void BuildDynamicLetterFadeStoryboard()
+        protected override void OnKeyDown(System.Windows.Input.KeyEventArgs e)
         {
-            var lettersRepeater = FindName("LettersRepeater") as ItemsControl;
-            if (lettersRepeater == null || lettersRepeater.Items.Count == 0)
+            base.OnKeyDown(e);
+
+            switch (e.Key)
             {
-                _letterFadeStoryboard = new Storyboard(); // no-op if no letters
-                return;
+                case System.Windows.Input.Key.Space:
+                    RestartAnimations();
+                    break;
+                case System.Windows.Input.Key.Escape:
+                    StopAnimations();
+                    break;
             }
+        }
 
-            var sb = new Storyboard
+        private void RestartAnimations()
+        {
+            try
             {
-                RepeatBehavior = RepeatBehavior.Forever,
-                Duration = TimeSpan.FromSeconds(ApplicationConstants.TOTAL_CYCLE_DURATION)
-            };
-
-            // Align with wave: previous code offset start by -0.3 from LETTER_START_TIME (~2.5)
-            double start = ApplicationConstants.LETTER_START_TIME - 0.3;
-
-            // How long it takes to fade DOWN to the dim state (increase for smoother/longer dim)
-            double fadeDownDuration = 0.8; // seconds (try 0.25–0.40)
-
-            // Quick restore and stagger so letters relight one-by-one right after the wave passes
-            double restoreDelay = 1.5; // seconds after the "hit" when restore begins
-            double restoreStagger = 0.2; // extra per-letter delay for cascading effect
-
-            for (int i = 0; i < lettersRepeater.Items.Count; i++)
-            {
-                var container = lettersRepeater.ItemContainerGenerator.ContainerFromIndex(i) as ContentPresenter;
-                if (container == null) continue;
-
-                container.ApplyTemplate();
-                var letterText = container.ContentTemplate.FindName("LetterText", container) as FrameworkElement;
-                if (letterText == null) continue;
-
-                var kf = new DoubleAnimationUsingKeyFrames();
-
-                // Start each track at full opacity implicitly (current value).
-                // Fade DOWN to dim (0.2) over fadeDownDuration after the wave "hit" moment
-                var dimKey = new EasingDoubleKeyFrame(
-                    ApplicationConstants.LETTER_ACTIVE_OPACITY, // 0.2
-                    KeyTime.FromTimeSpan(TimeSpan.FromSeconds(
-                        start + i * ApplicationConstants.LETTER_INTERVAL + fadeDownDuration
-                    ))
-                )
-                {
-                    EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseIn }
-                };
-                kf.KeyFrames.Add(dimKey);
-
-                // Fade UP (restore) to full (1.0) after a short delay + stagger
-                var restoreKey = new EasingDoubleKeyFrame(
-                    ApplicationConstants.LETTER_INACTIVE_OPACITY, // 1.0
-                    KeyTime.FromTimeSpan(TimeSpan.FromSeconds(
-                        start + i * ApplicationConstants.LETTER_INTERVAL + fadeDownDuration + restoreDelay + i * restoreStagger
-                    ))
-                )
-                {
-                    EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseOut }
-                };
-                kf.KeyFrames.Add(restoreKey);
-
-                Storyboard.SetTarget(kf, letterText);
-                Storyboard.SetTargetProperty(kf, new PropertyPath(UIElement.OpacityProperty));
-                sb.Children.Add(kf);
+                _viewModel?.RestartAnimations(this, _letterFadeStoryboard, _loadingDotsStoryboard, _colorWaveStoryboard);
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to restart animations: {ex.Message}",
+                    "Animation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
-            // No global To=1.0 reset — each letter restores itself within the cycle
-            _letterFadeStoryboard = sb;
+        private void StopAnimations()
+        {
+            try
+            {
+                _viewModel?.StopAnimations(this, _letterFadeStoryboard, _loadingDotsStoryboard, _colorWaveStoryboard);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to stop animations: {ex.Message}",
+                    "Animation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

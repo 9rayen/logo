@@ -2,212 +2,58 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!-- =============================================== -->
-    <!-- LETTER FADE ANIMATION STORYBOARD -->
-    <!-- Total cycle time: 6.0 seconds for smooth, synchronized animation -->
-    <!-- Letters dim when the wave reaches them, then quickly restore one-by-one -->
-    <!-- =============================================== -->
-
-    <Storyboard x:Key="LetterFadeAnimation" RepeatBehavior="Forever" Duration="0:0:6.0">
-        <!-- Each letter: dim at BeginTime, then restore quickly with a slight stagger -->
-
-        <!-- Letter0 -->
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Letter0" Storyboard.TargetProperty="Opacity">
-            <!-- Wave arrives: dim -->
-            <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="0.2"/>
-            <!-- Wave passed: restore quickly, staggered -->
-            <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="1.0"/>
-        </DoubleAnimationUsingKeyFrames>
-
-        <!-- Letter1 -->
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Letter1" Storyboard.TargetProperty="Opacity">
-            <EasingDoubleKeyFrame KeyTime="0:0:2.35" Value="0.2"/>
-            <EasingDoubleKeyFrame KeyTime="0:0:2.58" Value="1.0"/>
-        </DoubleAnimationUsingKeyFrames>
-
-        <!-- Letter2 -->
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Letter2" Storyboard.TargetProperty="Opacity">
-            <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="0.2"/>
-            <EasingDoubleKeyFrame KeyTime="0:0:2.76" Value="1.0"/>
-        </DoubleAnimationUsingKeyFrames>
-
-        <!-- Letter3 -->
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Letter3" Storyboard.TargetProperty="Opacity">
-            <EasingDoubleKeyFrame KeyTime="0:0:2.65" Value="0.2"/>
-            <EasingDoubleKeyFrame KeyTime="0:0:2.94" Value="1.0"/>
-        </DoubleAnimationUsingKeyFrames>
-
-        <!-- Letter4 -->
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Letter4" Storyboard.TargetProperty="Opacity">
-            <EasingDoubleKeyFrame KeyTime="0:0:2.8" Value="0.2"/>
-            <EasingDoubleKeyFrame KeyTime="0:0:3.12" Value="1.0"/>
-        </DoubleAnimationUsingKeyFrames>
-
-        <!-- Letter5 -->
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Letter5" Storyboard.TargetProperty="Opacity">
-            <EasingDoubleKeyFrame KeyTime="0:0:2.95" Value="0.2"/>
-            <EasingDoubleKeyFrame KeyTime="0:0:3.3" Value="1.0"/>
-        </DoubleAnimationUsingKeyFrames>
-
-        <!-- Letter6 -->
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Letter6" Storyboard.TargetProperty="Opacity">
-            <EasingDoubleKeyFrame KeyTime="0:0:3.1" Value="0.2"/>
-            <EasingDoubleKeyFrame KeyTime="0:0:3.48" Value="1.0"/>
-        </DoubleAnimationUsingKeyFrames>
-
-        <!-- Letter7 -->
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Letter7" Storyboard.TargetProperty="Opacity">
-            <EasingDoubleKeyFrame KeyTime="0:0:3.2" Value="0.2"/>
-            <EasingDoubleKeyFrame KeyTime="0:0:3.61" Value="1.0"/>
-        </DoubleAnimationUsingKeyFrames>
-
-        <!-- Letter8 -->
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Letter8" Storyboard.TargetProperty="Opacity">
-            <EasingDoubleKeyFrame KeyTime="0:0:3.25" Value="0.2"/>
-            <EasingDoubleKeyFrame KeyTime="0:0:3.69" Value="1.0"/>
-        </DoubleAnimationUsingKeyFrames>
-
-        <!-- Letter9 -->
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Letter9" Storyboard.TargetProperty="Opacity">
-            <EasingDoubleKeyFrame KeyTime="0:0:3.4" Value="0.2"/>
-            <EasingDoubleKeyFrame KeyTime="0:0:3.87" Value="1.0"/>
-        </DoubleAnimationUsingKeyFrames>
-
-        <!-- Letter10 -->
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Letter10" Storyboard.TargetProperty="Opacity">
-            <EasingDoubleKeyFrame KeyTime="0:0:3.55" Value="0.2"/>
-            <EasingDoubleKeyFrame KeyTime="0:0:4.05" Value="1.0"/>
-        </DoubleAnimationUsingKeyFrames>
-
-        <!-- Letter11 -->
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Letter11" Storyboard.TargetProperty="Opacity">
-            <EasingDoubleKeyFrame KeyTime="0:0:3.7" Value="0.2"/>
-            <EasingDoubleKeyFrame KeyTime="0:0:4.23" Value="1.0"/>
-        </DoubleAnimationUsingKeyFrames>
-
-        <!-- Letter12 -->
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Letter12" Storyboard.TargetProperty="Opacity">
-            <EasingDoubleKeyFrame KeyTime="0:0:3.85" Value="0.2"/>
-            <EasingDoubleKeyFrame KeyTime="0:0:4.41" Value="1.0"/>
-        </DoubleAnimationUsingKeyFrames>
-    </Storyboard>
-
-    <!-- =============================================== -->
     <!-- LOADING DOTS ANIMATION STORYBOARD -->
-    <!-- Independent timing - dots animate on their own schedule -->
-    <!-- Classic appearing and disappearing dots animation -->
+    <!-- Fixed timing - simple dots animation -->
     <!-- =============================================== -->
 
     <Storyboard x:Key="LoadingDotsAnimation" RepeatBehavior="Forever" Duration="0:0:6.0">
-        <!-- First dot - starts early and runs independently -->
+        <!-- First dot -->
         <DoubleAnimation Storyboard.TargetName="Dot1"
                        Storyboard.TargetProperty="Opacity"
                        From="0" To="1" Duration="0:0:0.3"
-                       BeginTime="0:0:0.5"/>
+                       BeginTime="0:0:4.0"/>
         <DoubleAnimation Storyboard.TargetName="Dot1"
                        Storyboard.TargetProperty="Opacity"
                        From="1" To="0" Duration="0:0:0.3"
-                       BeginTime="0:0:1.2"/>
+                       BeginTime="0:0:4.7"/>
 
-        <!-- Second dot - follows quickly after first dot -->
+        <!-- Second dot -->
         <DoubleAnimation Storyboard.TargetName="Dot2"
                        Storyboard.TargetProperty="Opacity"
                        From="0" To="1" Duration="0:0:0.3"
-                       BeginTime="0:0:0.8"/>
+                       BeginTime="0:0:4.3"/>
         <DoubleAnimation Storyboard.TargetName="Dot2"
                        Storyboard.TargetProperty="Opacity"
                        From="1" To="0" Duration="0:0:0.3"
-                       BeginTime="0:0:1.5"/>
+                       BeginTime="0:0:5.0"/>
 
-        <!-- Third dot - completes the first sequence -->
+        <!-- Third dot -->
         <DoubleAnimation Storyboard.TargetName="Dot3"
                        Storyboard.TargetProperty="Opacity"
                        From="0" To="1" Duration="0:0:0.3"
-                       BeginTime="0:0:1.1"/>
+                       BeginTime="0:0:4.6"/>
         <DoubleAnimation Storyboard.TargetName="Dot3"
                        Storyboard.TargetProperty="Opacity"
                        From="1" To="0" Duration="0:0:0.3"
-                       BeginTime="0:0:1.8"/>
-
-        <!-- Second wave of dots animation -->
-        <DoubleAnimation Storyboard.TargetName="Dot1"
-                       Storyboard.TargetProperty="Opacity"
-                       From="0" To="1" Duration="0:0:0.3"
-                       BeginTime="0:0:2.5"/>
-        <DoubleAnimation Storyboard.TargetName="Dot1"
-                       Storyboard.TargetProperty="Opacity"
-                       From="1" To="0" Duration="0:0:0.3"
-                       BeginTime="0:0:3.2"/>
-
-        <DoubleAnimation Storyboard.TargetName="Dot2"
-                       Storyboard.TargetProperty="Opacity"
-                       From="0" To="1" Duration="0:0:0.3"
-                       BeginTime="0:0:2.8"/>
-        <DoubleAnimation Storyboard.TargetName="Dot2"
-                       Storyboard.TargetProperty="Opacity"
-                       From="1" To="0" Duration="0:0:0.3"
-                       BeginTime="0:0:3.5"/>
-
-        <DoubleAnimation Storyboard.TargetName="Dot3"
-                       Storyboard.TargetProperty="Opacity"
-                       From="0" To="1" Duration="0:0:0.3"
-                       BeginTime="0:0:3.1"/>
-        <DoubleAnimation Storyboard.TargetName="Dot3"
-                       Storyboard.TargetProperty="Opacity"
-                       From="1" To="0" Duration="0:0:0.3"
-                       BeginTime="0:0:3.8"/>
-
-        <!-- Third wave of dots animation -->
-        <DoubleAnimation Storyboard.TargetName="Dot1"
-                       Storyboard.TargetProperty="Opacity"
-                       From="0" To="1" Duration="0:0:0.3"
-                       BeginTime="0:0:4.5"/>
-        <DoubleAnimation Storyboard.TargetName="Dot1"
-                       Storyboard.TargetProperty="Opacity"
-                       From="1" To="0" Duration="0:0:0.3"
-                       BeginTime="0:0:5.2"/>
-
-        <DoubleAnimation Storyboard.TargetName="Dot2"
-                       Storyboard.TargetProperty="Opacity"
-                       From="0" To="1" Duration="0:0:0.3"
-                       BeginTime="0:0:4.8"/>
-        <DoubleAnimation Storyboard.TargetName="Dot2"
-                       Storyboard.TargetProperty="Opacity"
-                       From="1" To="0" Duration="0:0:0.3"
-                       BeginTime="0:0:5.5"/>
-
-        <DoubleAnimation Storyboard.TargetName="Dot3"
-                       Storyboard.TargetProperty="Opacity"
-                       From="0" To="1" Duration="0:0:0.3"
-                       BeginTime="0:0:5.1"/>
-        <DoubleAnimation Storyboard.TargetName="Dot3"
-                       Storyboard.TargetProperty="Opacity"
-                       From="1" To="0" Duration="0:0:0.3"
-                       BeginTime="0:0:5.8"/>
+                       BeginTime="0:0:5.3"/>
     </Storyboard>
 
     <!-- =============================================== -->
     <!-- TUNNEL WAVE ANIMATION STORYBOARD -->
-    <!-- Continuous smooth wave creating tunnel effect -->
+    <!-- Fixed timing wave animation -->
     <!-- =============================================== -->
 
     <Storyboard x:Key="ColorWaveAnimation" RepeatBehavior="Forever" Duration="0:0:6.0">
-        <!-- Continuous smooth tunnel wave movement -->
-        <!-- Wave travels from beyond left (-0.3) to beyond right (1.5) for seamless loop -->
-
-        <!-- Leading edge of the pulse -->
+        <!-- Wave animations -->
         <DoubleAnimation Storyboard.TargetName="PulseStart"
                        Storyboard.TargetProperty="Offset"
                        From="-0.3" To="1.3" Duration="0:0:6.0"/>
         <DoubleAnimation Storyboard.TargetName="PulseLeading"
                        Storyboard.TargetProperty="Offset"
                        From="-0.25" To="1.35" Duration="0:0:6.0"/>
-
-        <!-- Center of the pulse (brightest color) -->
         <DoubleAnimation Storyboard.TargetName="PulseCenter"
                        Storyboard.TargetProperty="Offset"
                        From="-0.2" To="1.4" Duration="0:0:6.0"/>
-
-        <!-- Trailing edge of the pulse -->
         <DoubleAnimation Storyboard.TargetName="PulseTrailing"
                        Storyboard.TargetProperty="Offset"
                        From="-0.15" To="1.45" Duration="0:0:6.0"/>

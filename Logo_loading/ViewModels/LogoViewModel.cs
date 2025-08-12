@@ -10,9 +10,7 @@ namespace Logo_loading.ViewModels
 {
     /// <summary>
     /// ViewModel for the main window logo animations following MVVM pattern.
-    /// Implements INotifyPropertyChanged for data binding scenarios.
-    /// Manages animation state, status messages, and coordinates with animation services.
-    /// Features smooth tunnel wave effects with perfectly synchronized letter animations.
+    /// Simple implementation with fixed timing animations.
     /// </summary>
     public class LogoViewModel : INotifyPropertyChanged
     {
@@ -26,7 +24,6 @@ namespace Logo_loading.ViewModels
         #region Public Properties
         /// <summary>
         /// Gets or sets whether animations are currently running.
-        /// Automatically updates the status message when changed.
         /// </summary>
         public bool IsAnimating
         {
@@ -67,11 +64,9 @@ namespace Logo_loading.ViewModels
         #region Constructor
         /// <summary>
         /// Initializes a new instance of the LogoViewModel class.
-        /// Sets up services and initializes the status message.
         /// </summary>
         public LogoViewModel()
         {
-            // Initialize readonly services in constructor
             _animationService = new AnimationService();
             _textManagementService = new TextManagementService();
             
@@ -84,10 +79,6 @@ namespace Logo_loading.ViewModels
         /// <summary>
         /// Starts all logo animations using the animation service.
         /// </summary>
-        /// <param name="target">The target FrameworkElement for animations</param>
-        /// <param name="letterFadeStoryboard">Storyboard for letter fade animations</param>
-        /// <param name="loadingDotsStoryboard">Storyboard for loading dots animations</param>
-        /// <param name="colorWaveStoryboard">Storyboard for color wave animations</param>
         public void StartAnimations(FrameworkElement target, 
                                   Storyboard letterFadeStoryboard, 
                                   Storyboard loadingDotsStoryboard, 
@@ -103,10 +94,6 @@ namespace Logo_loading.ViewModels
         /// <summary>
         /// Stops all logo animations using the animation service.
         /// </summary>
-        /// <param name="target">The target FrameworkElement for animations</param>
-        /// <param name="letterFadeStoryboard">Storyboard for letter fade animations</param>
-        /// <param name="loadingDotsStoryboard">Storyboard for loading dots animations</param>
-        /// <param name="colorWaveStoryboard">Storyboard for color wave animations</param>
         public void StopAnimations(FrameworkElement target, 
                                  Storyboard letterFadeStoryboard, 
                                  Storyboard loadingDotsStoryboard, 
@@ -122,10 +109,6 @@ namespace Logo_loading.ViewModels
         /// <summary>
         /// Restarts all animations using the animation service.
         /// </summary>
-        /// <param name="target">The target FrameworkElement for animations</param>
-        /// <param name="letterFadeStoryboard">Storyboard for letter fade animations</param>
-        /// <param name="loadingDotsStoryboard">Storyboard for loading dots animations</param>
-        /// <param name="colorWaveStoryboard">Storyboard for color wave animations</param>
         public void RestartAnimations(FrameworkElement target, 
                                     Storyboard letterFadeStoryboard, 
                                     Storyboard loadingDotsStoryboard, 
@@ -137,8 +120,6 @@ namespace Logo_loading.ViewModels
         /// <summary>
         /// Sets up the loading text using the text management service.
         /// </summary>
-        /// <param name="target">The target element containing letter TextBlocks</param>
-        /// <param name="customText">Optional custom text to display</param>
         public void SetupLoadingText(FrameworkElement target, string customText = null)
         {
             _textManagementService.SetupLoadingText(target, customText);
@@ -151,7 +132,6 @@ namespace Logo_loading.ViewModels
         /// </summary>
         private void InitializeServices()
         {
-            // Subscribe to service events
             _animationService.AnimationError += OnAnimationError;
             _animationService.AnimationStateChanged += OnAnimationStateChanged;
             _textManagementService.TextSetupError += OnTextSetupError;
@@ -161,12 +141,11 @@ namespace Logo_loading.ViewModels
         /// <summary>
         /// Updates the status message based on animation state.
         /// </summary>
-        /// <param name="isAnimating">Whether animations are currently running</param>
         private void UpdateStatusForAnimationState(bool isAnimating)
         {
             StatusMessage = isAnimating 
-                ? "Perfect animation: tunnel wave + synchronized letters + loading dots!" 
-                : "Animation completed";
+                ? "Simple fixed timing animation running!" 
+                : "Animation stopped";
         }
         #endregion
 
@@ -214,7 +193,6 @@ namespace Logo_loading.ViewModels
         /// <summary>
         /// Raises the PropertyChanged event for the specified property.
         /// </summary>
-        /// <param name="propertyName">The name of the property that changed</param>
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
